@@ -1,22 +1,22 @@
 import datetime
-from dominio.adicion import Adicion
+from dominio.linea import Linea
 from datos import db
 
 class AdicionesRepo():
     def get_all(self):
-        return Adicion.query.all()
+        return Linea.query.all()
 
     def agregar(self, data):
-        a = Adicion(**data)
+        a = Linea(**data)
         db.session.add(a)
         db.session.commit()
         return a
     
     def get_by_numero(self, numero):
-        return Adicion.query.get(numero)
+        return Linea.query.get(numero)
 
     def borrar(self, numero):
-        a = Adicion.query.get(numero)
+        a = Linea.query.get(numero)
         if a:
             db.session.delete(a)
             db.session.commit()
@@ -24,7 +24,7 @@ class AdicionesRepo():
         return False
 
     def modificar(self,numero,data):
-        a = Adicion.query.get(numero)
+        a = Linea.query.get(numero)
         if a:
             a.numero = data['numero']
             a.mesa = data['mesa']
@@ -37,12 +37,12 @@ class AdicionesRepo():
         return False
 
     def buscar(self, desde, hasta):
-        return Adicion.query.filter(
-            Adicion.fecha >= desde,
-            Adicion.fecha <= hasta).all()
+        return Linea.query.filter(
+            Linea.fecha >= desde,
+            Linea.fecha <= hasta).all()
 
     def buscar_by_mozo(self, desde, hasta, mozo):
-        return Adicion.query.filter(
-            Adicion.fecha >= desde,
-            Adicion.fecha <= hasta,
-            Adicion.nro_mozo == mozo).all()
+        return Linea.query.filter(
+            Linea.fecha >= desde,
+            Linea.fecha <= hasta,
+            Linea.nro_mozo == mozo).all()

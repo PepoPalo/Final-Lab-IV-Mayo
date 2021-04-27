@@ -4,10 +4,10 @@ from flask_cors import CORS
 
 from datos import db
 
-from api.mozos_api import nsMozo
-from api.productos_api import nsProducto
-from api.adiciones_api import nsAdicion
-from api.detalles_api import nsDetalle
+from api.clientes_api import nsMozo
+from api.equipos_api import nsProducto
+from api.lineas_api import nsAdicion
+from api.lineaequipoplan_api import nsDetalle
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Yegua2020@localhost/Telefonia"

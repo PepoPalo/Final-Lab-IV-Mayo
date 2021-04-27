@@ -1,21 +1,21 @@
-from dominio.mozo import Mozo
+from dominio.cliente import Cliente
 from datos import db
 
-class MozosRepo():
+class ClientesRepo():
     def get_all(self):
-        return Mozo.query.all()
+        return Cliente.query.all()
 
     def agregar(self, data):
-        mozo = Mozo(**data)
-        db.session.add(mozo)
+        cliente = Cliente(**data)
+        db.session.add(cliente)
         db.session.commit()
-        return mozo
+        return cliente
 
     def get_by_id(self,id):
-        return Mozo.query.get(id)
+        return Cliente.query.get(id)
 
     def borrar(self,id):
-        m = Mozo.query.get(id)
+        m = Cliente.query.get(id)
         if m:
             db.session.delete(m)
             db.session.commit()
@@ -23,7 +23,7 @@ class MozosRepo():
         return False
 
     def modificar(self, id, data):
-        m = Mozo.query.get(id)
+        m = Cliente.query.get(id)
         if m:
             m.numero = data['numero']
             m.nombre = data['nombre']
