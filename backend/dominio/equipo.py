@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Numeric
 from sqlalchemy.orm import relationship
-from datos import db
+from backend.datos import db
 
 class Producto(db.Model):
     __tablename__ = 'productos'

@@ -1,36 +1,36 @@
-from dominio.producto import Producto
-from datos import db
+from backend.dominio.equipo import Equipo
+from backend.datos import db
 
 
-class ProductosRepo():
+class EquiposRepo():
     def get_all(self):
-        return Producto.query.all()
+        return Equipo.query.all()
 
     def agregar(self, data):
-        p = Producto(**data)
-        db.session.add(p)
+        e = Equipo(**data)
+        db.session.add(e)
         db.session.commit()
-        return p
+        return e
     
     def get_by_id(self, id):
-        return Producto.query.get(id)
+        return Equipo.query.get(id)
 
     def borrar(self,id):
-        p = Producto.query.get(id)
-        if p:
-            db.session.delete(p)
+        e = Equipo.query.get(id)
+        if e:
+            db.session.delete(e)
             db.session.commit()
             return True
         return False
 
     def modificar(self, id, data):
-        p = Producto.query.get(id)
-        if p:
-            p.codigo = data['codigo']
-            p.tipo = data['tipo']
-            p.descripcion = data.get('descripcion', None)
-            p.costo = data['costo']
-            p.porcentaje_ganancia = data['porcentaje_ganancia']
+        e = Equipo.query.get(id)
+        if e:
+            e.codigo = data['codigo']
+            e.tipo = data['tipo']
+            e.descripcion = data.get('descripcion', None)
+            e.costo = data['costo']
+            e.porcentaje_ganancia = data['porcentaje_ganancia']
             db.session.commit()
             return True
         return False

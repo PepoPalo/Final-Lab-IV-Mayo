@@ -1,6 +1,6 @@
 import datetime
-from dominio.linea import Linea
-from datos import db
+from backend.dominio.linea import Linea
+from backend.datos import db
 
 class AdicionesRepo():
     def get_all(self):

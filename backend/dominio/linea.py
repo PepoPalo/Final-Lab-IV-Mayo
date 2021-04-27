@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Boolean
-from datos import db
+from backend.datos import db
 
 class Adicion(db.Model):
     __tablename__ = 'adiciones'

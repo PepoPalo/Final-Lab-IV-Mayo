@@ -2,15 +2,18 @@ from flask import Flask
 from flask_restx import Api
 from flask_cors import CORS
 
-from datos import db
+from backend.datos import db
 
-from api.clientes_api import nsMozo
-from api.equipos_api import nsProducto
-from api.lineas_api import nsAdicion
-from api.lineaequipoplan_api import nsDetalle
+from backend.api.clientes_api import nsCliente
+from backend.api.equipos_api import nsEquipo
+from backend.api.lineas_api import nsLinea
+from backend.api.lineaequipoplan_api import nsLEP
+from backend.api.planes_api import nsPlan
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Yegua2020@localhost/Telefonia"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Yegua2020@localhost/Telefonia"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:100letters@localhost/Telefonia"
+
 CORS(app)
 db.init_app(app)
 
@@ -20,10 +23,12 @@ with app.app_context():
 
 api = Api(app, version='1.0.beta', title='Telefonía', description='Administracion de servicio de telefonía')
 
-api.add_namespace(nsMozo)
-api.add_namespace(nsProducto)
-api.add_namespace(nsAdicion) 
-api.add_namespace(nsDetalle)
+api.add_namespace(nsCliente)
+api.add_namespace(nsEquipo)
+api.add_namespace(nsLinea) 
+api.add_namespace(nsLEP)
+api.add_namespace(nsPlan)
+
 
 if __name__ == '__main__':
     app.run()

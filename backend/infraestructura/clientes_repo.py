@@ -1,5 +1,5 @@
-from dominio.cliente import Cliente
-from datos import db
+from backend.dominio.cliente import Cliente
+from backend.datos import db
 
 class ClientesRepo():
     def get_all(self):

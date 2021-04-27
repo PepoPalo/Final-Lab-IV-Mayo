@@ -1,53 +1,53 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
-from infraestructura.productos_repo import ProductosRepo
+from backend.infraestructura.equipos_repo import EquiposRepo
 
-repo = ProductosRepo()
+repo = EquiposRepo()
 
-nsProducto = Namespace('productos', description='Administrador de productos')
+nsEquipo = Namespace('equipos', description='Administrador de equipos')
 
-modeloProductoSinID = Model('ProductoSinCod',{
+modeloEquipoSinID = Model('EquipoSinCod',{
     'tipo': fields.String(),
     'descripcion': fields.String(),
     'porcentaje_ganancia': fields.Integer(),
     'costo': fields.Float()
 })
 
-modeloProducto = modeloProductoSinID.clone('Producto',{
+modeloEquipo = modeloEquipoSinID.clone('Equipo',{
     'codigo': fields.Integer(),
 
 })
 
-nsProducto.models[modeloProducto.name] = modeloProducto
-nsProducto.models[modeloProductoSinID.name] = modeloProductoSinID
+nsEquipo.models[modeloEquipo.name] = modeloEquipo
+nsEquipo.models[modeloEquipoSinID.name] = modeloEquipoSinID
 
-nuevoProductoParser = reqparse.RequestParser(bundle_errors=True)
-nuevoProductoParser.add_argument('tipo', type=str, required=True)
-nuevoProductoParser.add_argument('descripcion', type=str)
-nuevoProductoParser.add_argument('costo', type=float)
-nuevoProductoParser.add_argument('porcentaje_ganancia', type=int, required=True)
+nuevoEquipoParser = reqparse.RequestParser(bundle_errors=True)
+nuevoEquipoParser.add_argument('tipo', type=str, required=True)
+nuevoEquipoParser.add_argument('descripcion', type=str)
+nuevoEquipoParser.add_argument('costo', type=float)
+nuevoEquipoParser.add_argument('porcentaje_ganancia', type=int, required=True)
 
-editarProductoParser = nuevoProductoParser.copy()
-editarProductoParser.add_argument('codigo',type=int, required=True)
+editarEquipoParser = nuevoEquipoParser.copy()
+editarEquipoParser.add_argument('codigo',type=int, required=True)
 
-@nsProducto.route('/')
-class ProductoResource(Resource):
-    @nsProducto.marshal_list_with(modeloProducto)
+@nsEquipo.route('/')
+class EquipoResource(Resource):
+    @nsEquipo.marshal_list_with(modeloEquipo)
     def get(self):
         return repo.get_all()
 
-    @nsProducto.expect(modeloProductoSinID)
-    @nsProducto.marshal_with(modeloProducto)
+    @nsEquipo.expect(modeloEquipoSinID)
+    @nsEquipo.marshal_with(modeloEquipo)
     def post(self):
-        data = nuevoProductoParser.parse_args()
+        data = nuevoEquipoParser.parse_args()
         p = repo.agregar(data)
         if p:
             return p, 200
         abort(500)
 
-@nsProducto.route('/<int:id>')
-class ProductoResource(Resource):
-    @nsProducto.marshal_with(modeloProducto)
+@nsEquipo.route('/<int:id>')
+class EquipoResource(Resource):
+    @nsEquipo.marshal_with(modeloEquipo)
     def get(self, id):
         p = repo.get_by_id(id)
         if p:
@@ -56,12 +56,12 @@ class ProductoResource(Resource):
     
     def delete(self, id):
         if repo.borrar(id):
-            return 'Producto Eliminado', 200
+            return 'Equipo Eliminado', 200
         abort(400)
     
-    @nsProducto.expect(modeloProducto)
+    @nsEquipo.expect(modeloEquipo)
     def put(self, id):
-        data = editarProductoParser.parse_args()
+        data = editarEquipoParser.parse_args()
         if repo.modificar(id,data):
-            return 'Producto actualizado', 200
+            return 'Equipo actualizado', 200
         abort(404)
