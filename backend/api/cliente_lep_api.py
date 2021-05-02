@@ -4,8 +4,8 @@ from backend.infraestructura.clientes_lep_repo import ClientesLepRepo
 
 repo = ClientesLepRepo()
 
-nsclienteLEP = Namespace('clienteLEPs', description='Administrador de clienteLEPs')
-modeloclienteLEPSinN = Model('clienteLEPSinNumero',{
+nsclienteLEP = Namespace('clienteLEPs', description='Administrador de Cliente ft Linea-Equipo-Plan')
+modeloclienteLEPSinN = Model('clienteLEPSinId',{
     'mesa': fields.Integer(),
     'porcentaje_venta': fields.Float(),
     'fecha': fields.Date(),
