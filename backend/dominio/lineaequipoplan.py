@@ -1,10 +1,15 @@
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String, ForeignKey, Numeric
+from sqlalchemy import Column, Integer, String, Numeric, Date, Float
 from backend.datos import db
 
 class Lineaequipoplan(db.Model):
     __tablename__ = 'li_eq_pl'
     id = Column(Integer(), primary_key=True, autoincrement=True)
-    adicion_numero = Column(Integer(), ForeignKey('adiciones.numero'), nullable=False)
-    producto_codigo = Column(Integer(), ForeignKey('productos.codigo'), nullable=False)
-    cantidad = Column(Integer())
+    plan_id = Column(Integer(), nullable=False)
+    linea_id = Column(Integer(), nullable=False)
+    equipo_id =  Column(Integer(), nullable=False)
+    fecha_ini = Column(Date(), nullable=False)
+    fecha_fin = Column(Date(), nullable=True)
+    plan_costo = Column(Float(), nullable=False)
+    id_cliente = Column(Integer(), nullable=False)
+
