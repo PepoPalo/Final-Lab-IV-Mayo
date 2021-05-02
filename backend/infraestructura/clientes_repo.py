@@ -14,10 +14,10 @@ class ClientesRepo():
     def get_by_id(self,id):
         return Cliente.query.get(id)
 
-    def borrar(self,id):
+    def baja(self,id):
         m = Cliente.query.get(id)
         if m:
-            db.session.delete(m)
+            m.activo =False
             db.session.commit()
             return True
         return False
@@ -27,6 +27,8 @@ class ClientesRepo():
         if m:
             m.numero = data['numero']
             m.nombre = data['nombre']
+            m.sexo = data['sexo']
+            m.direccion = data['direccion']
             db.session.commit()
             return True
         return False

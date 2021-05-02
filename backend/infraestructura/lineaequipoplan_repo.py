@@ -1,5 +1,4 @@
 from backend.dominio.lineaequipoplan import lineaequipoplan
-from backend.dominio.equipo import Equipo
 from backend.datos import db
 
 class LineaEquipoPlanRepo():
@@ -27,9 +26,12 @@ class LineaEquipoPlanRepo():
         lineaequipoplan = lineaequipoplan.query.get(id)
         if lineaequipoplan:
             lineaequipoplan.id = data['id']
-            lineaequipoplan.adicion_numero = data['adicion_numero']
-            lineaequipoplan.producto_codigo = data['producto_codigo']
-            lineaequipoplan.cantidad = data['cantidad']
+            lineaequipoplan.plan_id = data['plan_id']
+            lineaequipoplan.equipo_id = data['equipo_id']
+            lineaequipoplan.fecha_ini = data['fecha_ini']
+            lineaequipoplan.fecha_fin = data['fecha_fin']
+            lineaequipoplan.plan_costo = data['plan_costo']
+
             db.session.commit()
             return True
         return False

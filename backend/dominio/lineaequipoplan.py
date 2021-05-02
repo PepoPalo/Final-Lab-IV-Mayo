@@ -11,5 +11,4 @@ class Lineaequipoplan(db.Model):
     fecha_ini = Column(Date(), nullable=False)
     fecha_fin = Column(Date(), nullable=True)
     plan_costo = Column(Float(), nullable=False)
-    id_cliente = Column(Integer(), nullable=False)
 

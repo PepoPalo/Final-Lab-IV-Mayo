@@ -26,11 +26,11 @@ class EquiposRepo():
     def modificar(self, id, data):
         e = Equipo.query.get(id)
         if e:
-            e.codigo = data['codigo']
-            e.tipo = data['tipo']
-            e.descripcion = data.get('descripcion', None)
-            e.costo = data['costo']
-            e.porcentaje_ganancia = data['porcentaje_ganancia']
+            e.imei = data['imei']
+            e.marca = data['marca']
+            e.modelo = data.get('modelo')
+            # e.activo = data['costo']
+            e.estado= data['activo']
             db.session.commit()
             return True
         return False

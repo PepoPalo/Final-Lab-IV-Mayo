@@ -26,12 +26,9 @@ class ClientesLepRepo():
     def modificar(self,numero,data):
         a = ClienteLEP.query.get(numero)
         if a:
-            a.numero = data['numero']
-            a.mesa = data['mesa']
-            a.porcentaje_venta = data['porcentaje_venta']
-            a.nro_cliente = data['nro_cliente']
-            a.fecha = data['fecha']
-            a.cerrada = data['cerrada']
+            a.id = data['id']
+            a.cliente_id = data['lep_id']
+            a.lep_id = data['lep_id']            
             db.session.commit()
             return True
         return False
