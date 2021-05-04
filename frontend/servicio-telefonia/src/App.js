@@ -41,7 +41,6 @@ export default function App() {
                 aria-selected="false" 
                 to="/equipos">Equipos
               </Link>
-
             </li>
 
             <li className="nav-item rounded-top" id="fondo" role="presentation">
@@ -52,10 +51,22 @@ export default function App() {
                 role="tab" 
                 aria-controls="linea" 
                 aria-selected="false" 
-                to="/lineas">Linea
+                to="/lineas">Lineas
               </Link>
-
             </li>
+
+            <li className="nav-item rounded-top" id="fondo" role="presentation">
+              <Link 
+                className="nav-link" 
+                id="plan-tab" 
+                data-toggle="tab"
+                role="tab" 
+                aria-controls="plan" 
+                aria-selected="false" 
+                to="/planes">Planes
+              </Link>
+            </li>
+
           </ul>
         </div>
 
@@ -77,6 +88,11 @@ export default function App() {
           <Route path="/lineas/buscar/:desde/:hasta" component={LineaListado}></Route>
           <Route path="/lineas/buscar/:desde/:hasta/:mozo" component={LineaListado}></Route>
           <Route path="/lineas" component={LineaListado}></Route>
+
+          {/* Planes */}
+          <Route path="/planes/nuevo" component={PlanForm}></Route>
+          <Route path="/planes/:id" component={PlanForm} ></Route>
+          <Route path="/planes" component={PlanListado}></Route>
 
         </Switch>
       </Router >

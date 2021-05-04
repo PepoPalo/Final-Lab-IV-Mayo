@@ -26,7 +26,7 @@ var clientes = [
     }
 ]
 
-export default function ClienteForm() {
+export default function ClienteListado() {
     const [lista, setLista] = useState([])
     useEffect(() => {
       getClientes()
@@ -84,7 +84,7 @@ export default function ClienteForm() {
                         <tr>
                         <th scope="col">#</th>
                         <th className="text-center" scope="col">Nombre</th>
-                        <th  className="text-center" scope="col">Acciones</th>
+                        <th className="text-center" scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
