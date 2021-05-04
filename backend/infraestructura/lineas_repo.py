@@ -1,8 +1,8 @@
 import datetime
-from backend.dominio.linea import Linea
-from backend.datos import db
+from dominio.linea import Linea
+from datos import db
 
-class AdicionesRepo():
+class LineasRepo():
     def get_all(self):
         return Linea.query.all()
 

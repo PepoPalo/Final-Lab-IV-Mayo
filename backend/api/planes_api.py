@@ -1,8 +1,8 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
-from backend.infraestructura.planes_repo import planesRepo
+from infraestructura.planes_repo import PlanesRepo
 
-repo = planesRepo()
+repo = PlanesRepo()
 
 nsPlan = Namespace('planes', description='Administrador de planes')
 

@@ -1,22 +1,22 @@
 import datetime
-from backend.dominio.cliente_lep import ClienteLEP
-from backend.datos import db
+from dominio.cliente_lep import ClienteLep
+from datos import db
 
 class ClientesLepRepo():
     def get_all(self):
-        return ClienteLEP.query.all()
+        return ClienteLep.query.all()
 
     def agregar(self, data):
-        a = ClienteLEP(**data)
+        a = ClienteLep(**data)
         db.session.add(a)
         db.session.commit()
         return a
     
     def get_by_numero(self, numero):
-        return ClienteLEP.query.get(numero)
+        return ClienteLep.query.get(numero)
 
     def borrar(self, numero):
-        a = ClienteLEP.query.get(numero)
+        a = ClienteLep.query.get(numero)
         if a:
             db.session.delete(a)
             db.session.commit()
@@ -24,7 +24,7 @@ class ClientesLepRepo():
         return False
 
     def modificar(self,numero,data):
-        a = ClienteLEP.query.get(numero)
+        a = ClienteLep.query.get(numero)
         if a:
             a.id = data['id']
             a.cliente_id = data['lep_id']
@@ -34,12 +34,12 @@ class ClientesLepRepo():
         return False
 
     def buscar(self, desde, hasta):
-        return ClienteLEP.query.filter(
-            ClienteLEP.fecha >= desde,
-            ClienteLEP.fecha <= hasta).all()
+        return ClienteLep.query.filter(
+            ClienteLep.fecha >= desde,
+            ClienteLep.fecha <= hasta).all()
 
     def buscar_by_cliente(self, desde, hasta, cliente):
-        return ClienteLEP.query.filter(
-            ClienteLEP.fecha >= desde,
-            ClienteLEP.fecha <= hasta,
-            ClienteLEP.id_cliente == cliente).all()
+        return ClienteLep.query.filter(
+            ClienteLep.fecha >= desde,
+            ClienteLep.fecha <= hasta,
+            ClienteLep.id_cliente == cliente).all()

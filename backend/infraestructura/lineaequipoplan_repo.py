@@ -1,5 +1,7 @@
-from backend.dominio.lineaequipoplan import lineaequipoplan
-from backend.datos import db
+from dominio.lineaequipoplan import Lineaequipoplan
+from datos import db
+from datetime import date
+
 
 class LineaEquipoPlanRepo():
     def get_all(self):
@@ -14,10 +16,10 @@ class LineaEquipoPlanRepo():
     def get_by_id(self, id):
         return lineaequipoplan.query.get(id)
 
-    def borrar(self, id):
+    def baja(self, id):
         lineaequipoplan = lineaequipoplan.query.get(id)
         if lineaequipoplan:
-            db.session.delete(lineaequipoplan)
+            lineaequipoplan.fecha_fin = date.now()
             db.session.commit()
             return True
         return False

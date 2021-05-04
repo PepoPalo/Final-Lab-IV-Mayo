@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Boolean
-from backend.datos import db
+from datos import db
 
 class Linea(db.Model):
     __tablename__ = 'lineas'    

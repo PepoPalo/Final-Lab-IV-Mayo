@@ -1,5 +1,5 @@
-from backend.dominio.equipo import Equipo
-from backend.datos import db
+from dominio.equipo import Equipo
+from datos import db
 
 
 class EquiposRepo():

@@ -1,6 +1,6 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
-from backend.infraestructura.equipos_repo import EquiposRepo
+from infraestructura.equipos_repo import EquiposRepo
 
 repo = EquiposRepo()
 

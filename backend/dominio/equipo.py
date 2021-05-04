@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date, Boolean
 from sqlalchemy.orm import relationship
-from backend.datos import db
+from datos import db
 
 class Equipo(db.Model):
     __tablename__ = 'equipos'
@@ -8,5 +8,5 @@ class Equipo(db.Model):
     marca = Column(String(20), nullable=False)
     modelo = Column(String(120), nullable=False)
     estado = Column(String(15),nullable=False)
-    fecha_ingreso =Column(Date(),nulable=False)
+    fecha_ingreso =Column(Date(),nullable=False)
     activo = Column(Boolean(), nullable=False)

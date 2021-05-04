@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Boolean
-from backend.datos import db
+from datos import db
 
 class ClienteLep(db.Model):
     __tablename__ = 'cliente_lep'    

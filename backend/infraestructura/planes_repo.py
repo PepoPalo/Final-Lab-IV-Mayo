@@ -1,9 +1,9 @@
-from backend.dominio.plan import plan
-from backend.datos import db
+from dominio.plan import Plan
+from datos import db
 
-class PlanRepo():
+class PlanesRepo():
     def get_all(self):
-        return plan.query.all()
+        return Plan.query.all()
 
     def agregar(self, data):
         plan = plan(**data)
@@ -12,18 +12,18 @@ class PlanRepo():
         return plan
     
     def get_by_id(self, id):
-        return plan.query.get(id)
+        return Plan.query.get(id)
 
     def baja(self, id):
-        plan = plan.query.get(id)
+        plan = Plan.query.get(id)
         if plan:
-            plan.estaActivo =False
+            plan.estaActivo = False           
             db.session.commit()
             return True
         return False
 
     def modificar(self,id,data):
-        plan = plan.query.get(id)
+        plan = Plan.query.get(id)
         if plan:
             plan.id = data['id']
             plan.nombre = data['nombre']
@@ -32,8 +32,7 @@ class PlanRepo():
             plan.cant_mensajes = data['cant_mensajes']
             plan.cant_gigas = data['cant_gigas']
             plan.tipo = data['tipo']
-
-
+            plan.estaActivo = data['estaActivo']
             db.session.commit()
             return True
         return False

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Numeric, Date, Float
-from backend.datos import db
+from datos import db
 
 class Lineaequipoplan(db.Model):
     __tablename__ = 'li_eq_pl'

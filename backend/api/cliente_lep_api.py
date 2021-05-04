@@ -1,6 +1,6 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
-from backend.infraestructura.clientes_lep_repo import ClientesLepRepo
+from infraestructura.clientes_lep_repo import ClientesLepRepo
 
 repo = ClientesLepRepo()
 
