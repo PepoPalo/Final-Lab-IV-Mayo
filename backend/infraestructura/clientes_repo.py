@@ -22,6 +22,12 @@ class ClientesRepo():
             return True
         return False
 
+    def buscar(self, desde, hasta):
+        return Cliente.query.filter(
+            Cliente.fecha >= desde,
+            Cliente.activo == True,
+            Cliente.fecha <= hasta).all()    
+
     def modificar(self, id, data):
         m = Cliente.query.get(id)
         if m:
@@ -32,3 +38,5 @@ class ClientesRepo():
             db.session.commit()
             return True
         return False
+
+     

@@ -15,10 +15,10 @@ class LineasRepo():
     def get_by_numero(self, numero):
         return Linea.query.get(numero)
 
-    def borrar(self, numero):
+    def baja(self, numero):
         a = Linea.query.get(numero)
         if a:
-            db.session.delete(a)
+            a.activa = False
             db.session.commit()
             return True
         return False
@@ -26,23 +26,17 @@ class LineasRepo():
     def modificar(self,numero,data):
         a = Linea.query.get(numero)
         if a:
+            a.id = data['id']
             a.numero = data['numero']
-            a.mesa = data['mesa']
-            a.porcentaje_venta = data['porcentaje_venta']
-            a.nro_mozo = data['nro_mozo']
-            a.fecha = data['fecha']
-            a.cerrada = data['cerrada']
+            a.estado = data['estado']
+            a.activa = data['activa']
             db.session.commit()
             return True
         return False
 
-    def buscar(self, desde, hasta):
+    def buscar(self):
         return Linea.query.filter(
-            Linea.fecha >= desde,
-            Linea.fecha <= hasta).all()
+            Linea.activa ==True
+           ).all()
 
-    def buscar_by_mozo(self, desde, hasta, mozo):
-        return Linea.query.filter(
-            Linea.fecha >= desde,
-            Linea.fecha <= hasta,
-            Linea.nro_mozo == mozo).all()
+   
