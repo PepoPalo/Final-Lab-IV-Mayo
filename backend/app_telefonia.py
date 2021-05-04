@@ -11,8 +11,8 @@ from api.lineaequipoplan_api import nsLEP
 from api.planes_api import nsPlan
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Yegua2020@localhost/Telefonia"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:100letters@localhost/Telefonia"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:Yegua2020@localhost/Telefonia"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:100letters@localhost/Telefonia"
 
 CORS(app)
 db.init_app(app)
