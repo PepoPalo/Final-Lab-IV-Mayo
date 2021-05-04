@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Boolean, Float, Integer, String, Numeric
-from backend.datos import db
+from datos import db
 
 class Plan(db.Model):
     __tablename__ = 'planes'

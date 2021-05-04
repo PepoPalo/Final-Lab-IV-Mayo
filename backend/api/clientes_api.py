@@ -1,8 +1,8 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
-from backend.infraestructura.clientes_repo import clientes_repo
+from infraestructura.clientes_repo import ClientesRepo
 
-repo = clientes_repo()
+repo = ClientesRepo()
 
 nsCliente = Namespace('clientes', description='Administrador de cliente')
 

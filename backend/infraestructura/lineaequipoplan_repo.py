@@ -1,6 +1,6 @@
-from backend.dominio.lineaequipoplan import lineaequipoplan
-from backend.dominio.equipo import Equipo
-from backend.datos import db
+from dominio.lineaequipoplan import Lineaequipoplan
+from dominio.equipo import Equipo
+from datos import db
 
 class LineaEquipoPlanRepo():
     def get_all(self):
