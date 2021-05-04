@@ -1,5 +1,4 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, Switch, Route, BrowserRouter as Router } from "react-router-dom";
 
 import ClienteForm from './componentes/cliente/ClienteForm';
@@ -17,24 +16,49 @@ import PlanListado from './componentes/plan/PlanListado';
 
 export default function App() {
   return (
-    <div className="container">
+    <div className="container bg-transparent">
       <Router>
-        <div className="App">
-          <ul className="nav nav-tabs">
-            <li className="nav-item">
-              <Link className="nav-link active" to="/clientes">Clientes</Link>
+        <div className="App mt-3">
+          <ul className="nav nav-tabs" id="myTab" role="tablist">
+            <li className="nav-item rounded-top" id="fondo" role="presentation">
+              <Link 
+                className="nav-link active" 
+                id="cliente-tab" 
+                data-toggle="tab"
+                role="tab" 
+                aria-controls="cliente" 
+                aria-selected="true" 
+                to="/clientes">Clientes
+              </Link>
             </li>
-            <li className="nav-item dropdown">
-              <Link className="nav-link active" to="/equipos">Equipos</Link>
+            <li className="nav-item rounded-top" id="fondo" role="presentation">
+              <Link 
+                className="nav-link" 
+                id="equipo-tab" 
+                data-toggle="tab"
+                role="tab" 
+                aria-controls="equipo" 
+                aria-selected="false" 
+                to="/equipos">Equipos
+              </Link>
 
             </li>
-           
-            <li className="nav-item dropdown">
-              <Link className="nav-link active" to="/lineas">Linea</Link>
+
+            <li className="nav-item rounded-top" id="fondo" role="presentation">
+              <Link 
+                className="nav-link" 
+                id="linea-tab" 
+                data-toggle="tab"
+                role="tab" 
+                aria-controls="linea" 
+                aria-selected="false" 
+                to="/lineas">Linea
+              </Link>
 
             </li>
           </ul>
         </div>
+
         <Switch>
 
           {/* Clientes */}
