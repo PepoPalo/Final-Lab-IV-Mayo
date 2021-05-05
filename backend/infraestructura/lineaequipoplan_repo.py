@@ -1,6 +1,6 @@
 from dominio.lineaequipoplan import Lineaequipoplan
 from datos import db
-from datetime import date
+import datetime
 
 
 class LineaEquipoPlanRepo():
@@ -19,25 +19,30 @@ class LineaEquipoPlanRepo():
     def baja(self, id):
         lineaequipoplan = Lineaequipoplan.query.get(id)
         if lineaequipoplan:
-            lineaequipoplan.fecha_fin = date.now()
+            lineaequipoplan.fecha_fin = datetime.date.today()
             db.session.commit()
             return True
         return False
+
     def baja_by_equipo(self,equipo):
-        lineaequipoplan= buscar_by_equipo(equipo)
+        lineaequipoplan = Lineaequipoplan.query.filter(
+            Lineaequipoplan.equipo_id == equipo).first() 
         if lineaequipoplan:
-            lineaequipoplan.fecha_fin =date.now()
+            lineaequipoplan.fecha_fin =datetime.date.today()
             db.session.commit()
             
     def baja_by_linea(self,linea):
-        lineaequipoplan= buscar_by_linea(linea)
+        lineaequipoplan= Lineaequipoplan.query.filter(
+            Lineaequipoplan.linea_id == linea).first()
         if lineaequipoplan:
-            lineaequipoplan.fecha_fin =date.now()
+            lineaequipoplan.fecha_fin =datetime.date.today()
             db.session.commit()  
 
     def buscar_by_equipo(self, equipo):
         return Lineaequipoplan.query.filter(
             Lineaequipoplan.equipo_id == equipo).first() 
+
+
     def buscar_by_linea(self,linea):
         return Lineaequipoplan.query.filter(
             Lineaequipoplan.linea_id == linea).first()

@@ -31,7 +31,10 @@ nsLinea.models[modeloBusqueda.name] = modeloBusqueda
 nuevaLineaParser = reqparse.RequestParser(bundle_errors=True)
 nuevaLineaParser.add_argument('numero', type=str, required=True)
 nuevaLineaParser.add_argument('estado', type=str, required=True)
-nuevaLineaParser.add_argument('activa', type=bool, required=True)
+        ##PEDRO LOOK AT THIS
+        ##PEDRO LOOK AT THIS
+
+nuevaLineaParser.add_argument('activa', type=bool, required=False)
 
 editarLineaParser = nuevaLineaParser.copy()
 editarLineaParser.add_argument('id', type=int, required=True)
@@ -51,6 +54,11 @@ class LineasResource(Resource):
     @nsLinea.marshal_with(modeloLinea)
     def post(self):
         data = nuevaLineaParser.parse_args()
+
+        ##PEDRO LOOK AT THIS
+        if(data.estado =="Activada"):
+            data.activa = True
+
         f = repo.agregar(data)
         if f:
             return f, 201

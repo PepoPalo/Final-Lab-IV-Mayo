@@ -21,7 +21,7 @@ export default function ClienteFicha(){
         direccion: '',
         sexo: '',
         fecha_ingreso: '',
-        activo: '',
+        activo: ''
     })
 
     const sexos = [
@@ -30,12 +30,15 @@ export default function ClienteFicha(){
     ]
 
     useEffect(() => {
-        // if (id) {
-        //     axios.get(`http://localhost:5000/clientes/${id}`)
-        //         .then(response => setCliente(response.data))
-        //         .catch(error => alert(error))
-        // }
-        setCliente(clientep)
+        if (id) {
+            axios.get(`http://localhost:5000/clientes/${id}`)
+                .then(response => setCliente(response.data))
+                .catch(error => alert(error))
+        }
+        // setCliente(clientep)
+        axios.get(`http://localhost:5000/clientes/`)
+                .then(response => setCliente(response.data))
+                .catch(error => alert(error))
     }, [])
 
     function handleOnChange(event, campo) {

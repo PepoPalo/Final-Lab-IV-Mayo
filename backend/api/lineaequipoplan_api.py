@@ -2,6 +2,7 @@ from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.lineaequipoplan_repo import LineaEquipoPlanRepo
 from infraestructura.clientes_lep_repo import ClientesLepRepo
+
 from flask_restx.inputs import date
 
 repo = LineaEquipoPlanRepo()
@@ -15,8 +16,6 @@ modeloLEPSinNum = Model('DetalleSinNumero',{
     'fecha_ini': fields.Date(),
     'fecha_fin': fields.Date(),
     'plan_costo': fields.Float()
-
-
 })
 
 modeloLEP = modeloLEPSinNum.clone('Lineaequipoplan', {
@@ -45,7 +44,7 @@ class LepResource(Resource):
 
     @nsLEP.expect(modeloLEPSinNum)
     @nsLEP.marshal_with(modeloLEP)
-    def post(self):
+    def post(self,cliente):
         data = nuevoLEPParser.parse_args()
         df = repo.agregar(data)
         if df:
