@@ -51,7 +51,7 @@ class LepResource(Resource):
 
     @nsLEP.expect(modeloLEPSinNum)
     @nsLEP.marshal_with(modeloLEP)
-    def post(self,cliente):
+    def post(self):
         data = nuevoLEPParser.parse_args()
         df = repo.agregar(data)
         if df:

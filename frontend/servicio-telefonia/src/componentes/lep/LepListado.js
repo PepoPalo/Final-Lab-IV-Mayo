@@ -43,14 +43,14 @@ export default function LepListado() {
           .catch((error) => alert(error))
     }
 
-    // function borrar(imei) {
-    //   axios.delete(`http://localhost:5000/lineaequipoplan/${imei}`)
-    //     .then((response) => {
-    //       alert("Registro borrado correctamente")
-    //       getLeps()
-    //     })
-    //     .catch(error => alert(error))
-    // }
+    function borrar(imei) {
+      axios.put(`http://localhost:5000/lineaequipoplan/baja/${imei}`)
+        .then((response) => {
+          alert("Registro borrado correctamente")
+          getLeps()
+        })
+        .catch(error => alert(error))
+    }
 
 
     return (
@@ -82,10 +82,11 @@ export default function LepListado() {
                                     <td className="text-center">{lineas.find(li => li.id == lep.linea_id).numero}</td>
                                     <td className="text-center">{planes.find(pl => pl.id == lep.plan_id).nombre}</td>
                                     <td className="text-center">${lep.plan_costo}</td>
-                                    <td className="text-center">${lep.fecha_ini}</td>
+                                    <td className="text-center">{lep.fecha_ini}</td>
                                     <td className="text-center">
                                         <Link className="btn btn-outline-primary" to={"/leps/" + lep.imei}>Editar</Link> &nbsp;
-                                        <Link className="btn btn-outline-danger"   to={"/leps/"/* + lep.numero*/}>Dar Baja</Link> &nbsp;
+                                        <button className="btn btn-outline-danger mr-2" onClick={() => borrar(lep.id)}>Dar Baja</button>
+                                        
                                     </td>
                                 </tr>
                                 

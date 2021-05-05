@@ -1,45 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-var clientep ={
-    id: 1,
-    nombre: 'Pedro Palomino',
-    direccion: 'Av. Crespo 1072',
-    sexo: 'Masculino',
-    edad: 26,
-    fecha_ingreso: '16/06/1996',
-    activo: 'True'
-}
 
 export default function ClienteFicha(){
     const history = useHistory()
     const { id } = useParams()
+    const [lista, setLista] = useState([])
     const [cliente, setCliente] = useState({
         id: '',
         nombre: '',
         direccion: '',
         sexo: '',
+        edad: '',
         fecha_ingreso: '',
         activo: ''
     })
 
-    const sexos = [
-        'Masculino',
-        'Femenino'
-    ]
+    const [equipos, setEquipos] = useState([])
+    const [lineas, setLineas] = useState([])
+    const [planes, setPlanes] = useState([])
 
     useEffect(() => {
+        getEquipos()
+        getPlanes()
+        getLineas()
         if (id) {
             axios.get(`http://localhost:5000/clientes/${id}`)
                 .then(response => setCliente(response.data))
                 .catch(error => alert(error))
         }
-        // setCliente(clientep)
-        axios.get(`http://localhost:5000/clientes/`)
-                .then(response => setCliente(response.data))
-                .catch(error => alert(error))
+       
     }, [])
+
+    function getEquipos() {
+        axios.get("http://localhost:5000/equipos/")
+        .then((response) => setEquipos(response.data))
+        .catch((error) => alert(error))
+    }
+
+    function getPlanes() {
+        axios.get("http://localhost:5000/planes/")
+          .then((response) => setPlanes(response.data))
+          .catch((error) => alert(error))
+    }
+
+    function getLineas() {
+        axios.get("http://localhost:5000/lineas/")
+          .then((response) => setLineas(response.data))
+          .catch((error) => alert(error))
+    }
+
 
     function handleOnChange(event, campo) {
         setCliente({
@@ -84,32 +95,39 @@ export default function ClienteFicha(){
                     </div>
                     <table class="table table-sm col-9">
                         <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th className="text-center" scope="col">Equipo</th>
+                        <th className="text-center" scope="col">Linea</th>
+                        <th className="text-center" scope="col">Plan</th>
+                        <th className="text-center" scope="col">Costo</th>
+                        <th className="text-center" scope="col">Fecha Inicio</th>
+                        <th className="text-center" scope="col">Fecha Fin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {lista.length > 0 && (
+                            lista.map(lep => (
+                                <>
+                                <tr key={lep.id}>
+                                    <th scope="row">{lep.imei}</th>
+                                    <td className="text-center">{equipos.find(eq => eq.imei == lep.equipo_id).modelo}</td>
+                                    <td className="text-center">{lineas.find(li => li.id == lep.linea_id).numero}</td>
+                                    <td className="text-center">{planes.find(pl => pl.id == lep.plan_id).nombre}</td>
+                                    <td className="text-center">${lep.plan_costo}</td>
+                                    <td className="text-center">${lep.fecha_ini}</td>
+                                </tr>
+                                
+                            </>))
+                        )}
+                        {lista.length === 0 && (
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <td colSpan="3">
+                                <h2>No hay datos</h2>
+                            </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            </tr>
-                        </tbody>
+                        )}
+                    </tbody>
                     </table>
                 </div>
             </div>

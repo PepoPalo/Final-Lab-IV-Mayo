@@ -10,7 +10,7 @@ class LineaEquipoPlanRepo():
         ClienteLep.cliente_id == cliente).all()
 
     def agregar(self, data):
-        lineaequipoplan = lineaequipoplan(**data)
+        lineaequipoplan = Lineaequipoplan(**data)
         db.session.add(lineaequipoplan)
         db.session.commit()
         return lineaequipoplan

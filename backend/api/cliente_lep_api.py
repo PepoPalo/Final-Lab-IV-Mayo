@@ -29,7 +29,7 @@ nsclienteLEP.models[modeloBusqueda.name] = modeloBusqueda
 nuevaclienteLEPParser = reqparse.RequestParser(bundle_errors=True)
 nuevaclienteLEPParser.add_argument('lep_id', type=int, required=True)
 nuevaclienteLEPParser.add_argument('cliente_id', type=int, required=True)
-nuevaclienteLEPParser.add_argument('activo', type=bool, required=True)
+nuevaclienteLEPParser.add_argument('activo', type=bool, required=False)
 
 editarclienteLEPParser = nuevaclienteLEPParser.copy()
 editarclienteLEPParser.add_argument('id', type=int, required=True)

@@ -60,10 +60,7 @@ class PlanResource(Resource):
             return p, 200
         abort(404)
     
-    def delete(self, id):
-        if repo.borrar(id):
-            return 'Plan Eliminado', 200
-        abort(400)
+    
     
     @nsPlan.expect(modeloPlan)
     def put(self, id):
@@ -71,3 +68,14 @@ class PlanResource(Resource):
         if repo.modificar(id,data):
             return 'Plan actualizado', 200
         abort(404)
+
+@nsPlan.route('/baja/<int:id>')
+class PlanResource(Resource):
+
+     def put(self, id):
+        if repo.baja(id):
+          
+            return 'Linea dada de baja', 200
+        abort(400)    
+
+    

@@ -26,6 +26,7 @@ export default function ClienteForm(){
     })
 
     const sexos = [
+        '',
         'm',
         'f'
     ]
@@ -59,6 +60,7 @@ export default function ClienteForm(){
                 .catch(error => alert(error))
         }
         else {
+            console.log(cliente)
             axios.post("http://localhost:5000/clientes/", cliente)
                 .then(response => {
                     alert("se ha agregado el registro")

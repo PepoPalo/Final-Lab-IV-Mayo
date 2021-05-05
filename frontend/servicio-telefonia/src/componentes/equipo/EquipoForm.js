@@ -85,7 +85,6 @@ export default function EquipoForm(){
                         <label className="col-1 text-center align-self-center">Modelo</label>
                         <input type="text" className="form-control col-2" value={equipo.modelo} onChange={(event) => handleOnChange(event, 'modelo')} />
                         <label className="col-1 text-center align-self-center">Estado</label>
-                        {/* <input type="text" className="form-control col-2" value={equipo.estado} onChange={(event) => handleOnChange(event, 'estado')} /> */}
                         <select 
                             key={0} 
                             value={equipo.estado} 
@@ -101,18 +100,7 @@ export default function EquipoForm(){
                     <div className="form-row my-3">
                         <label className="col-2 align-self-center">Fecha de Ingreso</label>
                         {/* <input type="text" className="form-control col-2" value={equipo.fecha_ingreso} onChange={(event) => handleOnChange(event, 'fecha_ingreso')} /> */}
-                        {imei &&
-                            <input 
-                                className="form-control col-2"
-                                type="date"
-                                min="2018-01-01" 
-                                max="2023-12-31" 
-                                value={equipo.fecha_ingreso}
-                                onChange={(event) => handleOnChange(event, 'fecha_ingreso')}
-                                disabled>
-                            </input>
-                        }
-                        {!imei &&
+                        
                             <input 
                                 className="form-control col-2"
                                 type="date"
@@ -122,7 +110,7 @@ export default function EquipoForm(){
                                 onChange={(event) => handleOnChange(event, 'fecha_ingreso')}
                                 >
                             </input>
-                        }
+                        
                         <div className="col-2"></div>
                         <div className="col-4">
                             <button type="submit" className="btn btn-primary mr-2">Aceptar</button>

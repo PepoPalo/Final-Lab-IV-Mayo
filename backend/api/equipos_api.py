@@ -101,7 +101,8 @@ class EquipoResource(Resource):
             #busco pa dar de baja en cliente-lep
             lep =repoLep.buscar_by_equipo(id)
             #baja en cliente-lep
-            repoLepCliente.bajalep(lep.id)
+            if lep:
+             repoLepCliente.bajalep(lep.id)
             return 'Equipo dado de Baja', 200            
         abort(400)
         

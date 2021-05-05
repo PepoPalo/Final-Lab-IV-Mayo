@@ -82,7 +82,7 @@ class ClienteResource(Resource):
 class ClienteResource(Resource):
     @nsCliente.marshal_list_with(modeloCliente)
     def get(self, desde, hasta):
-        l = repo2.traer_activos(desde, hasta)
+        l = repoLep.buscar(desde, hasta)
         if l:
              a = []
              for x in l:

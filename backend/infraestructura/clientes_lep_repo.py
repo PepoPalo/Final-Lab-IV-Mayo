@@ -54,7 +54,8 @@ class ClientesLepRepo():
     def buscar(self, desde, hasta):
         return ClienteLep.query.filter(
             ClienteLep.fecha >= desde,
-            ClienteLep.fecha <= hasta).all()
+            ClienteLep.fecha <= hasta,
+            ClienteLep.activo ==True).all()
 
 
 

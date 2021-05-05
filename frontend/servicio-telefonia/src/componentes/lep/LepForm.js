@@ -68,11 +68,13 @@ export default function LepForm(){
                 .catch(error => alert(error))
         }
         else {
+            lep.plan_costo = planes.find(pl => lep.plan_id == pl.id).costo_por_mes
             axios.post("http://localhost:5000/lineaequipoplan/", lep)
                 .then(response => {
                     alert("se ha agregado el registro")
-                    axios.post("http://localhost:5000/clienteLEPs/", {cliente_id: id, lep_id: idd})
-                    history.push("/leps/")
+                    console.log(response.data)
+                    axios.post("http://localhost:5000/clienteLEPs/", {cliente_id: parseInt(id), lep_id: response.data['id'], activo: true})
+                    history.push(`/leps/${id}`)
                 }).catch(error => alert(error))
         }
     }
@@ -88,10 +90,10 @@ export default function LepForm(){
                         <label className="col-2 align-self-center">Equipo</label>
                         <select 
                             key={0} 
-                            value={lep.tipo} 
+                            value={lep.equipo_id} 
                             className="form-control col-2" 
                             aria-label=".form-select-lg example" 
-                            onChange={(event) => {handleOnChange(event, 'plan_id') }}>
+                            onChange={(event) => {handleOnChange(event, 'equipo_id') }}>
                                 <option value=" "></option>
                             {equipos.map(item => (
                                 <option key={item.imei} value={item.imei}>{item.marca + " " + item.modelo}</option>
@@ -126,11 +128,6 @@ export default function LepForm(){
                                 ))
                             }
                         </select>
-                        {/* {!idd && 
-                        <>
-                            <label className="col-2 text-center align-self-center">Costo por mes $</label>
-                            <input type="number" className="form-control col-2" value={planes.find(pl => pl.id == lep.plan_id).costo_por_mes} onChange={(event) => handleOnChange(event, 'plan_costo')} disabled/>
-                        </>} */}
                     </div>
                     <div className="form-row mt-3">
                         <div className="col-2 align-self-center">
@@ -144,7 +141,7 @@ export default function LepForm(){
                                 max="2023-12-31" 
                                 value={lep.fecha_ini}
                                 onChange={(event) => handleOnChange(event, 'fecha_ini')}
-                                disabled>
+                                >
                             </input>
                         }
                         {!id &&
