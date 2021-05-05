@@ -2,30 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-var clientes = [
-    {
-        id: 1,
-        nombre: 'Pedro Palomino',
-        direccion: 'Av. Crespo 1072',
-        sexo: 'Masculino',
-        edad: 26
-    },
-    {
-        id: 2,
-        nombre: 'Milagros Pavón',
-        direccion: 'Buenos Aires 726',
-        sexo: 'Femenino',
-        edad: 25
-    },
-    {
-        id: 3,
-        nombre: 'Josué Main',
-        direccion: 'Av. Zanni 1970',
-        sexo: 'Masculino',
-        edad: 29
-    }
-]
-
 export default function ClienteListado() {
     const [lista, setLista] = useState([])
     useEffect(() => {
@@ -33,10 +9,10 @@ export default function ClienteListado() {
     }, [])
   
     function getClientes() {
-    //   axios.get("http://localhost:5000/clientes/")
-    //     .then((response) => setLista(response.data.filter(mozo => mozo.id != null)))
-    //     .catch((error) => alert(error))
-        setLista(clientes)
+      axios.get("http://localhost:5000/clientes/")
+        .then((response) => setLista(response.data))
+        .catch((error) => alert(error))
+        // setLista(clientes)
     }
   
   

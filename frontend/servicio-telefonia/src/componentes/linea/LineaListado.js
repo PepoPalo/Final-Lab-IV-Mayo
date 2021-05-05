@@ -2,33 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-var lineas = [
-    {
-        id: 1,
-        numero: '+543435182886',
-        estado: 'activada',
-        activa: 'True'
-    },
-    {
-        id: 2,
-        numero: '+543435182887',
-        estado: 'pendiente',
-        activa: 'False'
-    },
-    {
-        id: 3,
-        numero: '+543435182826',
-        estado: 'bloqueada',
-        activa: 'False'
-    },
-    {
-        id: 4,
-        numero: '+543435123456',
-        estado: 'bloqueada',
-        activa: 'False'
-    }
-]
-
 export default function LineaListado() {
     const [lista, setLista] = useState([])
     useEffect(() => {
@@ -36,10 +9,9 @@ export default function LineaListado() {
     }, [])
   
     function getLineas() {
-    //   axios.get("http://localhost:5000/lineas/")
-    //     .then((response) => setLista(response.data)))
-    //     .catch((error) => alert(error))
-        setLista(lineas)
+      axios.get("http://localhost:5000/lineas/")
+        .then((response) => setLista(response.data))
+        .catch((error) => alert(error))
     }
   
   
@@ -79,21 +51,6 @@ export default function LineaListado() {
                                         <button className="btn btn-outline-danger"   to={"/lineas/"/* + linea.numero*/}>Baja</button> &nbsp;
                                     </td>
                                 </tr>
-                            {/*!linea.cerrada &&(
-                                <td>
-                                <button className="btn btn-primary" to={"/lineas/" + linea.numero} disabled>Ver</button> &nbsp;
-                                <Link className="btn btn-warning" to={"/lineas/" + linea.numero}>Editar</Link> &nbsp;
-                                </td>
-
-                            )*/}
-                                {/*linea.cerrada &&(
-                                <td >
-                                <Link className="btn btn-primary" to={"/lineas/" + linea.numero}>Ver</Link> &nbsp;
-                                <button className="btn btn-warning"   to={"/lineas/" + linea.numero} disabled>Editar</button> &nbsp;
-                                </td>
-
-                                )*/}
-                                
                             </>))
                         )}
                         {lista.length === 0 && (

@@ -20,22 +20,23 @@ export default function ClienteForm(){
         nombre: '',
         direccion: '',
         sexo: '',
+        edad: '',
         fecha_ingreso: '',
         activo: '',
     })
 
     const sexos = [
-        'Masculino',
-        'Femenino'
+        'm',
+        'f'
     ]
 
     useEffect(() => {
-        // if (id) {
-        //     axios.get(`http://localhost:5000/clientes/${id}`)
-        //         .then(response => setCliente(response.data))
-        //         .catch(error => alert(error))
-        // }
-        setCliente(clientep)
+        if (id) {
+            axios.get(`http://localhost:5000/clientes/${id}`)
+                .then(response => setCliente(response.data))
+                .catch(error => alert(error))
+        }
+        // setCliente(clientep)
     }, [])
 
     function handleOnChange(event, campo) {
@@ -130,7 +131,35 @@ export default function ClienteForm(){
                             <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
                             <button onClick={() => history.push("/clientes/")} className="btn btn-danger">Cancelar</button>
                         </div>
-                    </div>
+                        </div>
+                        
+                    <div className="form-row mt-3">
+                        <div className="col-1 text-center align-self-center">
+                            <label>Fecha de ingreso</label>
+                        </div>
+                        {id &&
+                            <input 
+                                className="form-control col-2"
+                                type="date"
+                                min="2018-01-01" 
+                                max="2023-12-31" 
+                                value={cliente.fecha_ingreso}
+                                onChange={(event) => handleOnChange(event, 'fecha_ingreso')}
+                                disabled>
+                            </input>
+                        }
+                        {!id &&
+                            <input 
+                                className="form-control col-2"
+                                type="date"
+                                min="2018-01-01" 
+                                max="2023-12-31" 
+                                value={cliente.fecha_ingreso}
+                                onChange={(event) => handleOnChange(event, 'fecha_ingreso')}
+                                >
+                            </input>
+                        }
+                    </div>      
                 </form>
             </div>
         </>

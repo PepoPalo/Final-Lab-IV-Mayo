@@ -16,16 +16,17 @@ export default function PlanForm(){
         estaActivo: '',
     })
     const tipos = [
+        '',
         'prepago',
         'tarjeta'
     ]
 
     useEffect(() => {
-        // if (id) {
-        //     axios.get(`http://localhost:5000/planes/${id}`)
-        //         .then(response => setPlan(response.data))
-        //         .catch(error => alert(error))
-        // }
+        if (id) {
+            axios.get(`http://localhost:5000/planes/${id}`)
+                .then(response => setPlan(response.data))
+                .catch(error => alert(error))
+        }
     }, [])
 
     function handleOnChange(event, campo) {
@@ -68,7 +69,7 @@ export default function PlanForm(){
                         
                         <input type="text" className="form-control col-2" value={plan.nombre} onChange={(event) => handleOnChange(event, 'nombre')} />
                         <label className="col-2 text-center align-self-center">Costo por mes $</label>
-                        <input type="text" className="form-control col-2" value={plan.costo_por_mes} onChange={(event) => handleOnChange(event, 'costo_por_mes')} />
+                        <input type="number" className="form-control col-2" value={plan.costo_por_mes} onChange={(event) => handleOnChange(event, 'costo_por_mes')} />
                         <label className="col-1 text-center align-self-center">Tipo</label>
                         <select 
                             key={0} 
@@ -84,13 +85,13 @@ export default function PlanForm(){
                     </div>
                     <div className="form-row mt-3">
                         <label className="col-2 align-self-center">Cantidad de llamadas</label>
-                        <input type="text" className="form-control col-2" value={plan.cant_llamadas} onChange={(event) => handleOnChange(event, 'cant_llamadas')} />
+                        <input type="number" className="form-control col-2" value={plan.cant_llamadas} onChange={(event) => handleOnChange(event, 'cant_llamadas')} />
                         <label className="col-2 text-center align-self-center">Cantidad de mensajes</label>
-                        <input type="text" className="form-control col-2" value={plan.cant_mensajes} onChange={(event) => handleOnChange(event, 'cant_mensajes')} />
+                        <input type="number" className="form-control col-2" value={plan.cant_mensajes} onChange={(event) => handleOnChange(event, 'cant_mensajes')} />
                     </div>
                     <div className="form-row mt-3">
                         <label className="col-2 align-self-center">Cantidad de gigas</label>
-                        <input type="text" className="form-control col-2" value={plan.cant_gigas} onChange={(event) => handleOnChange(event, 'cant_gigas')} />
+                        <input type="number" className="form-control col-2" value={plan.cant_gigas} onChange={(event) => handleOnChange(event, 'cant_gigas')} />
                         <div className="col-2"></div>
                         <div className="col-4 justify-content-end">
                             <button type="submit" className="btn btn-primary mr-2">Aceptar</button>

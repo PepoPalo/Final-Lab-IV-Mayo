@@ -14,18 +14,34 @@ export default function EquipoForm(){
         activo: '',
     })
     const estados = [
-        'preventa',
-        'en sucursal',
-        'vendido',
-        'descompuesto'
+        {
+            op: 0,
+            estado: ''
+        },
+        {
+            op: 1,
+            estado: 'preventa',
+        },
+        {
+            op: 2,
+            estado: 'en sucursal',
+        },
+        {
+            op: 3,
+            estado: 'vendido',
+        },
+        {
+            op: 4,
+            estado: 'descompuesto',
+        }
     ]
 
     useEffect(() => {
-        // if (imei) {
-        //     axios.get(`http://localhost:5000/equipos/${imei}`)
-        //         .then(response => setEquipo(response.data))
-        //         .catch(error => alert(error))
-        // }
+        if (imei) {
+            axios.get(`http://localhost:5000/equipos/${imei}`)
+                .then(response => setEquipo(response.data))
+                .catch(error => alert(error))
+        }
     }, [])
 
     function handleOnChange(event, campo) {
@@ -77,7 +93,7 @@ export default function EquipoForm(){
                             aria-label=".form-select-lg example" 
                             onChange={(event) => {handleOnChange(event, 'estado') }}>
                             {estados.map(item => (
-                                <option key={item} value={item}>{item}</option>
+                                <option key={item.op} value={item.estado}>{item.estado}</option>
                                 ))
                             }
                         </select>

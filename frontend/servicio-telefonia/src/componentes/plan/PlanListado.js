@@ -2,49 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-var planes = [
-    {
-        id: 1,
-        nombre: 'Plan 5G',
-        costo_por_mes: 1690.00,
-        cant_llamadas: 1000,
-        cant_mensajes: 5000,
-        cant_gigas: 5,
-        tipo: 'tarjeta',
-        estaActivo: 'False'
-    },
-    {
-        id: 2,
-        nombre: 'Plan 3G',
-        costo_por_mes: 1300.00,
-        cant_llamadas: 1000,
-        cant_mensajes: 5000,
-        cant_gigas: 3,
-        tipo: 'tarjeta',
-        estaActivo: 'False'
-    },
-    {
-        id: 3,
-        nombre: 'Familiar',
-        costo_por_mes: 2190.00,
-        cant_llamadas: 10000,
-        cant_mensajes: 10000,
-        cant_gigas: 10,
-        tipo: 'tarjeta',
-        estaActivo: 'False'
-    },
-    {
-        id: 4,
-        nombre: 'Básico',
-        costo_por_mes: 500.00,
-        cant_llamadas: 500,
-        cant_mensajes: 1000,
-        cant_gigas: 1,
-        tipo: 'prepaga',
-        estaActivo: 'False'
-    }
-]
-
 export default function PlanListado() {
     const [lista, setLista] = useState([])
     useEffect(() => {
@@ -52,10 +9,9 @@ export default function PlanListado() {
     }, [])
   
     function getPlanes() {
-    //   axios.get("http://localhost:5000/planes/")
-    //     .then((response) => setLista(response.data.filter(mozo => mozo.nombre != null)))
-    //     .catch((error) => alert(error))
-        setLista(planes)
+      axios.get("http://localhost:5000/planes/")
+        .then((response) => setLista(response.data))
+        .catch((error) => alert(error))
     }
   
   
@@ -102,22 +58,7 @@ export default function PlanListado() {
                                         <Link className="btn btn-outline-primary" to={"/planes/" + plan.id}>Editar</Link> &nbsp;
                                         <button className="btn btn-outline-danger"   to={"/planes/"}>Eliminar</button> &nbsp;
                                     </td>
-                                </tr>
-                            {/*!plan.cerrada &&(
-                                <td>
-                                <button className="btn btn-primary" to={"/planes/" + plan.nombre} disabled>Ver</button> &nbsp;
-                                <Link className="btn btn-warning" to={"/planes/" + plan.nombre}>Editar</Link> &nbsp;
-                                </td>
-
-                            )*/}
-                                {/*plan.cerrada &&(
-                                <td >
-                                <Link className="btn btn-primary" to={"/planes/" + plan.nombre}>Ver</Link> &nbsp;
-                                <button className="btn btn-warning"   to={"/planes/" + plan.nombre} disabled>Editar</button> &nbsp;
-                                </td>
-
-                                )*/}
-                                
+                                </tr>  
                             </>))
                         )}
                         {lista.length === 0 && (

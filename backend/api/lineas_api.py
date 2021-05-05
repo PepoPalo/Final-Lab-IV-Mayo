@@ -58,6 +58,8 @@ class LineasResource(Resource):
         ##PEDRO LOOK AT THIS
         if(data.estado =="Activada"):
             data.activa = True
+        else:
+            data.activa = False
 
         f = repo.agregar(data)
         if f:

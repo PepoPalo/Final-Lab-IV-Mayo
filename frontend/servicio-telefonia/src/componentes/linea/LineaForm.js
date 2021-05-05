@@ -19,18 +19,18 @@ export default function LineaForm(){
         activo: '',
     })
     const estados = [
-        'pendiente',
-        'activada',
-        'bloqueada'
+        '',
+        'Pendiente',
+        'Activada',
+        'Bloqueada'
     ]
 
     useEffect(() => {
-        // if (id) {
-        //     axios.get(`http://localhost:5000/lineas/${id}`)
-        //         .then(response => setLinea(response.data))
-        //         .catch(error => alert(error))
-        // }
-        setLinea(lineap)
+        if (id) {
+            axios.get(`http://localhost:5000/lineas/${id}`)
+                .then(response => setLinea(response.data))
+                .catch(error => alert(error))
+        }
     }, [])
 
     function handleOnChange(event, campo) {
@@ -78,23 +78,21 @@ export default function LineaForm(){
                             <label className="mr-4">Número</label>
                             <input type="text" className="form-control col-2" value={linea.numero} onChange={(event) => handleOnChange(event, 'numero')} />
                         </div>
-                        {id && 
-                            <div className="row justify-content-center m-4">
-                                <label className="mr-4">Estado</label>
-                                {/* <input type="text" className="form-control col-4" value={linea.estado} onChange={(event) => handleOnChange(event, 'estado')} /> */}
-                                <select 
-                                    key={0} 
-                                    value={linea.estado} 
-                                    className="form-control col-2" 
-                                    aria-label=".form-select-lg example" 
-                                    onChange={(event) => {handleOnChange(event, 'estado') }}>
-                                    {estados.map(item => (
-                                        <option key={item} value={item}>{item}</option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
-                        }
+                        <div className="row justify-content-center m-4">
+                            <label className="mr-4">Estado</label>
+                            {/* <input type="text" className="form-control col-4" value={linea.estado} onChange={(event) => handleOnChange(event, 'estado')} /> */}
+                            <select 
+                                key={0} 
+                                value={linea.estado} 
+                                className="form-control col-2" 
+                                aria-label=".form-select-lg example" 
+                                onChange={(event) => {handleOnChange(event, 'estado') }}>
+                                {estados.map(item => (
+                                    <option key={item} value={item}>{item}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
                         <div className="row justify-content-center mt-4">
                             <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
                             <button onClick={() => history.push("/lineas/")} className="btn btn-danger">Cancelar</button>

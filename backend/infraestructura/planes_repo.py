@@ -6,7 +6,8 @@ class PlanesRepo():
         return Plan.query.all()
 
     def agregar(self, data):
-        plan = plan(**data)
+        plan = Plan(**data)
+        plan.estaActivo = True
         db.session.add(plan)
         db.session.commit()
         return plan
@@ -25,7 +26,6 @@ class PlanesRepo():
     def modificar(self,id,data):
         plan = Plan.query.get(id)
         if plan:
-            plan.id = data['id']
             plan.nombre = data['nombre']
             plan.costo_por_mes = data['costo_por_mes']
             plan.cant_llamadas = data['cant_llamadas']
