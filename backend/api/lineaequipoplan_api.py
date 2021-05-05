@@ -93,6 +93,19 @@ class LepResource(Resource):
              a= []
              for x in l:
                h= repo.buscar(x.id,desde,hasta)
-               a.append(h)
+            
+             a.append(h)
              return a, 200
+        abort(404)
+@nsLEP.route('/buscar/<string:desde>/<string:hasta>')
+class LepResource(Resource):
+    @nsLEP.marshal_list_with(modeloLEP)
+    def get(self, desde, hasta):
+        l = repoLep.buscar(desde,hasta)
+        if l:
+            a = []
+            for x in l:
+                h = repo.get_by_id(x.lep_id)
+            a.append(h)
+            return a,200
         abort(404)
