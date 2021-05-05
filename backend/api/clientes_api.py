@@ -67,7 +67,7 @@ class ClienteResource(Resource):
     def delete(self, id):
         if repo.baja(id):
             # doy de baja en la tabla relacional
-            repoLep.baja(id)
+            repoLep.bajacliente(id)
             return 'Cliente dado de baja', 200
         abort(400)
 
@@ -80,7 +80,7 @@ class ClienteResource(Resource):
 
 @nsEquipo.route('/buscar/<string:desde>/<string:hasta>/')
 class ClienteResource(Resource):
-    @nsEquipo.marshal_list_with(modeloEquipo)
+    @nsEquipo.marshal_list_with(modeloCliente)
     def get(self, desde, hasta):
         l = repo.buscar(desde, hasta)
         if l:
