@@ -13,6 +13,7 @@ modeloClienteSinID = Model('ClienteSinID',{
     'nombre': fields.String(),
     'direccion': fields.String(),
     'sexo':fields.String(),
+    'edad':fields.Integer(),
     'fecha_ingreso':fields.Date(),
     'activo':fields.Boolean()
 })
@@ -34,6 +35,7 @@ nuevoClienteParser.add_argument('nombre', type=str, required=True)
 nuevoClienteParser.add_argument('direccion', type=str, required=True)
 nuevoClienteParser.add_argument('sexo', type=str, required=True)
 nuevoClienteParser.add_argument('fecha_ingreso', type=date, required=True)
+nuevoClienteParser.add_argument('edad', type=int, required=True)
 nuevoClienteParser.add_argument('activo', type=bool, required=True)
 
 editarClienteParser = nuevoClienteParser.copy()

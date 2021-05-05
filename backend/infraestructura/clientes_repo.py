@@ -35,6 +35,7 @@ class ClientesRepo():
             m.nombre = data['nombre']
             m.sexo = data['sexo']
             m.direccion = data['direccion']
+            m.edad = data['edad']
             db.session.commit()
             return True
         return False
