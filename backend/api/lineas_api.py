@@ -1,12 +1,13 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.lineas_repo import LineasRepo
+from infraestructura.equipos_repo import EquiposRepo
 from infraestructura.clientes_lep_repo import ClientesLepRepo
 from infraestructura.lineaequipoplan_repo import LineaEquipoPlanRepo
 repoLep= LineaEquipoPlanRepo()
 repoLepCliente = ClientesLepRepo()
 repo = LineasRepo()
-
+repoEquipo = EquiposRepo()
 nsLinea = Namespace('lineas', description='Administrador de lineas')
 modeloLineaSinN = Model('LineaSinNumero',{
     'numero': fields.String(),
@@ -55,11 +56,11 @@ class LineasResource(Resource):
             return f, 201
         abort(500)
 
-@nsLinea.route('/<int:numero>')
+@nsLinea.route('/<int:id>')
 class LineasResource(Resource):
     @nsLinea.marshal_with(modeloLinea)
-    def get(self, numero):
-        f = repo.get_by_numero(numero)
+    def get(self, id):
+        f = repo.get_by_numero(id)
         if f:
             return f, 200
         abort(404)
@@ -72,18 +73,18 @@ class LineasResource(Resource):
         if repo.modificar(numero, data):
             return 'Linea modificada', 200
         abort(404)
-@nsLinea.route('/baja/<int:numero>')
+@nsLinea.route('/baja/<int:id>')
 class LineasResource(Resource):
 
      def put(self, numero):
-        if repo.baja(numero):
+        if repo.baja(id):
             # doy de baja en lineaEquipoPlan
 
-            repoLep.baja_by_linea(numero)
+            repoLep.baja_by_linea(id)
 
             # busco  para darle de baja al equipo 
             # y tener tmb el id pa la tabla cliente_lep
-            lineaeqplan = repoLep.buscar_by_linea(numero)
+            lineaeqplan = repoLep.buscar_by_linea(id)
 
             #doy de baja el equipo
             repoEquipo.baja(lineaeqplan.equipo_id)

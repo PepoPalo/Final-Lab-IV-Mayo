@@ -12,19 +12,19 @@ class LineasRepo():
         db.session.commit()
         return a
     
-    def get_by_numero(self, numero):
-        return Linea.query.get(numero)
+    def get_by_numero(self, id):
+        return Linea.query.get(id)
 
-    def baja(self, numero):
-        a = Linea.query.get(numero)
+    def baja(self, id):
+        a = Linea.query.get(id)
         if a:
             a.activa = False
             db.session.commit()
             return True
         return False
 
-    def modificar(self,numero,data):
-        a = Linea.query.get(numero)
+    def modificar(self,id,data):
+        a = Linea.query.get(id)
         if a:
             a.numero = data['numero']
             a.estado = data['estado']
