@@ -9,4 +9,4 @@ class Equipo(db.Model):
     modelo = Column(String(120), nullable=False)
     estado = Column(String(15),nullable=False)
     fecha_ingreso =Column(Date(),nullable=False)
-    activo = Column(Boolean(), nullable=False)
+    activo = Column(Boolean(), nullable=True)

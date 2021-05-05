@@ -2,7 +2,8 @@ from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.lineas_repo import LineasRepo
 from infraestructura.clientes_lep_repo import ClientesLepRepo
-
+from infraestructura.EquiposRepo import EquiposRepo
+repoEquipo= EquiposRepo()
 repoLep = ClientesLepRepo()
 repo = LineasRepo()
 
@@ -78,6 +79,8 @@ class LineasResource(Resource):
         if repo.baja(numero):
         # doy de baja en la tabla relacional
             repoLep.bajalep(numero)
+         #damos de baja el equipo?
+            # repoEquipo.baja()
             return 'Linea dada de baja', 200
         abort(400)    
 

@@ -28,7 +28,18 @@ class EquiposRepo():
             Equipo.fecha_ingreso >= desde,
             Equipo.fecha_ingreso <= hasta,
             Equipo.activo ==True).all()
-
+    def buscar_disponibles(self):
+        return Equipo.query.filter(
+            Equipo.estado!="Vendido"
+        )
+    def asociar_a_linea(self,id):
+        e = Equipo.query.get(id)
+        if e:
+            e.estado = "Vendido",
+            e.activo = True
+            return True
+        return False
+           
     def modificar(self, id, data):
         e = Equipo.query.get(id)
         if e:
