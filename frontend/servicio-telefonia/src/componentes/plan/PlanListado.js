@@ -99,8 +99,8 @@ export default function PlanListado() {
                                     <td className="text-center">{plan.cant_gigas} gb</td>
                                     <td className="text-center">{plan.tipo}</td>
                                     <td className="text-center">
-                                        <Link className="btn btn-primary" to={"/planes/" + plan.id}>Editar</Link> &nbsp;
-                                        <button className="btn btn-danger"   to={"/planes/"}>Eliminar</button> &nbsp;
+                                        <Link className="btn btn-outline-primary" to={"/planes/" + plan.id}>Editar</Link> &nbsp;
+                                        <button className="btn btn-outline-danger"   to={"/planes/"}>Eliminar</button> &nbsp;
                                     </td>
                                 </tr>
                             {/*!plan.cerrada &&(

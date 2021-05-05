@@ -71,16 +71,16 @@ export default function PlanForm(){
                         <input type="text" className="form-control col-2" value={plan.costo_por_mes} onChange={(event) => handleOnChange(event, 'costo_por_mes')} />
                         <label className="col-1 text-center align-self-center">Tipo</label>
                         <select 
-                                key={0} 
-                                value={plan.tipo} 
-                                className="form-control col-2" 
-                                aria-label=".form-select-lg example" 
-                                onChange={(event) => {handleOnChange(event, 'tipo') }}>
-                                {tipos.map(item => (
-                                    <option key={item} value={item}>{item}</option>
-                                    ))
-                                }
-                            </select>
+                            key={0} 
+                            value={plan.tipo} 
+                            className="form-control col-2" 
+                            aria-label=".form-select-lg example" 
+                            onChange={(event) => {handleOnChange(event, 'tipo') }}>
+                            {tipos.map(item => (
+                                <option key={item} value={item}>{item}</option>
+                                ))
+                            }
+                        </select>
                     </div>
                     <div className="form-row mt-3">
                         <label className="col-2 align-self-center">Cantidad de llamadas</label>

@@ -13,6 +13,12 @@ export default function EquipoForm(){
         fecha_ingreso: '',
         activo: '',
     })
+    const estados = [
+        'preventa',
+        'en sucursal',
+        'vendido',
+        'descompuesto'
+    ]
 
     useEffect(() => {
         // if (imei) {
@@ -52,31 +58,60 @@ export default function EquipoForm(){
 
     return(
         <>
-            <div className="container bg-white">
+            <div className="container bg-white p-3">
 
                 {imei && <h1>Editando equipo</h1>}
                 {!imei && <h1>Nuevo equipo</h1>}
                 <form onSubmit={(event) => guardar(event)}>
-                    <div className="form-group">
-                        <label>Marca</label>
-                        <input type="text" className="form-control" value={equipo.marca} onChange={(event) => handleOnChange(event, 'marca')} />
+                    <div className="form-row">
+                        <label className="col-2 align-self-center">Marca</label>
+                        <input type="text" className="form-control col-2" value={equipo.marca} onChange={(event) => handleOnChange(event, 'marca')} />
+                        <label className="col-1 text-center align-self-center">Modelo</label>
+                        <input type="text" className="form-control col-2" value={equipo.modelo} onChange={(event) => handleOnChange(event, 'modelo')} />
+                        <label className="col-1 text-center align-self-center">Estado</label>
+                        {/* <input type="text" className="form-control col-2" value={equipo.estado} onChange={(event) => handleOnChange(event, 'estado')} /> */}
+                        <select 
+                            key={0} 
+                            value={equipo.estado} 
+                            className="form-control col-2" 
+                            aria-label=".form-select-lg example" 
+                            onChange={(event) => {handleOnChange(event, 'estado') }}>
+                            {estados.map(item => (
+                                <option key={item} value={item}>{item}</option>
+                                ))
+                            }
+                        </select>
                     </div>
-                    <div className="form-group">
-                        <label>Modelo</label>
-                        <input type="text" className="form-control" value={equipo.modelo} onChange={(event) => handleOnChange(event, 'modelo')} />
-                    </div>
-                    <div className="form-group">
-                        <label>Estado</label>
-                        <input type="text" className="form-control" value={equipo.estado} onChange={(event) => handleOnChange(event, 'estado')} />
-                    </div>
-                    <div className="form-group">
-                        <label>Fecha de Ingreso</label>
-                        <input type="text" className="form-control" value={equipo.fecha_ingreso} onChange={(event) => handleOnChange(event, 'fecha_ingreso')} />
-                    </div>
-
-                    <div className="float-right">
-                        <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
-                        <button onClick={() => history.push("/equipos/")} className="btn btn-primary">Cancelar</button>
+                    <div className="form-row my-3">
+                        <label className="col-2 align-self-center">Fecha de Ingreso</label>
+                        {/* <input type="text" className="form-control col-2" value={equipo.fecha_ingreso} onChange={(event) => handleOnChange(event, 'fecha_ingreso')} /> */}
+                        {imei &&
+                            <input 
+                                className="form-control col-2"
+                                type="date"
+                                min="2018-01-01" 
+                                max="2023-12-31" 
+                                value={equipo.fecha_ingreso}
+                                onChange={(event) => handleOnChange(event, 'fecha_ingreso')}
+                                disabled>
+                            </input>
+                        }
+                        {!imei &&
+                            <input 
+                                className="form-control col-2"
+                                type="date"
+                                min="2018-01-01" 
+                                max="2023-12-31" 
+                                value={equipo.fecha_ingreso}
+                                onChange={(event) => handleOnChange(event, 'fecha_ingreso')}
+                                >
+                            </input>
+                        }
+                        <div className="col-2"></div>
+                        <div className="col-4">
+                            <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
+                            <button onClick={() => history.push("/equipos/")} className="btn btn-danger">Cancelar</button>
+                        </div>
                     </div>
                 </form>
             </div>
