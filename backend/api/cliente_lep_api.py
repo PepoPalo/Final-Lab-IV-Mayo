@@ -1,8 +1,11 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.clientes_lep_repo import ClientesLepRepo
+from infraestructura.lineaequipoplan_repo import LineaEquipoPlanRepo
+
 
 repo = ClientesLepRepo()
+lepRepo = LineaEquipoPlanRepo()
 
 nsclienteLEP = Namespace('clienteLEPs', description='Administrador de Cliente ft Linea-Equipo-Plan')
 modeloclienteLEPSinN = Model('clienteLEPSinId',{
@@ -15,10 +18,14 @@ modeloclienteLEP = modeloclienteLEPSinN.clone('clienteLEP', {
     'id': fields.Integer()
 })
 
+modeloBusqueda = Model('BusquedaFechas', {
+    'desde': fields.Date(),
+    'hasta': fields.Date()
+})
 
 nsclienteLEP.models[modeloclienteLEP.name] = modeloclienteLEP
 nsclienteLEP.models[modeloclienteLEPSinN.name] = modeloclienteLEPSinN
-
+nsclienteLEP.models[modeloBusqueda.name] = modeloBusqueda
 nuevaclienteLEPParser = reqparse.RequestParser(bundle_errors=True)
 nuevaclienteLEPParser.add_argument('lep_id', type=int, required=True)
 nuevaclienteLEPParser.add_argument('cliente_id', type=int, required=True)
@@ -27,7 +34,9 @@ nuevaclienteLEPParser.add_argument('activo', type=bool, required=True)
 editarclienteLEPParser = nuevaclienteLEPParser.copy()
 editarclienteLEPParser.add_argument('id', type=int, required=True)
 
-
+buscarclienteLEPParser = reqparse.RequestParser(bundle_errors=True)
+buscarclienteLEPParser.add_argument('desde', type=str, required=True)
+buscarclienteLEPParser.add_argument('hasta', type=str, required=True)
 
 @nsclienteLEP.route('/')
 class clienteLEPResource(Resource):
@@ -65,3 +74,16 @@ class clienteLEPsResource(Resource):
             return 'clienteLEP modificada', 200
         abort(404)
 
+@nsclienteLEP.route('/buscar/<string:desde>/<string:hasta>/<int:cliente>')
+class clienteLEPsResource(Resource):
+    @nsclienteLEP.marshal_list_with(modeloclienteLEP)
+    def get(self, desde, hasta, cliente):
+        l = repo.buscar_by_cliente(cliente)
+        if l:
+            a= []
+            for x in l:
+               h= lepRepo.get_by_id(x)
+               a.append(h)
+
+            return a, 200
+        abort(404)

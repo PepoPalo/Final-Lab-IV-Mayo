@@ -21,9 +21,14 @@ modeloLEPSinNum = Model('DetalleSinNumero',{
 modeloLEP = modeloLEPSinNum.clone('Lineaequipoplan', {
     'id': fields.Integer()
 })
-
+modeloBusqueda = Model('BusquedaFechas', {
+    'desde': fields.Date(),
+    'hasta': fields.Date()
+})
 nsLEP.models[modeloLEPSinNum.name] = modeloLEPSinNum
 nsLEP.models[modeloLEP.name] = modeloLEP
+nsLEP.models[modeloBusqueda.name] = modeloBusqueda
+
 
 nuevoLEPParser = reqparse.RequestParser(bundle_errors=True)
 nuevoLEPParser.add_argument('plan_id', type=int, required=True)
@@ -35,7 +40,9 @@ nuevoLEPParser.add_argument('plan_costo', type=float, required=True)
 
 editarLEPParser = nuevoLEPParser.copy()
 editarLEPParser.add_argument('id', type=int, required=True)
-
+buscarLEPParser = reqparse.RequestParser(bundle_errors=True)
+buscarLEPParser.add_argument('desde', type=str, required=True)
+buscarLEPParser.add_argument('hasta', type=str, required=True)
 @nsLEP.route('/')
 class LepResource(Resource):
     # @nsLEP.marshal_list_with(modeloLEP)
@@ -82,3 +89,25 @@ class LepResource(Resource):
             repoLep.bajalep(id)
             return 'Relacion linea-equipo-plan dada de Baja', 200            
         abort(400)
+@nsLEP.route('/buscar/<string:desde>/<string:hasta>/<int:id>')
+class LepResource(Resource):
+    @nsLEP.marshal_list_with(modeloLEP)
+    def get(self, desde, hasta,id):
+        l = repoLep.buscar_by_cliente(id)
+        if l:
+            
+             a= []
+             for x in l:
+               h= repo.buscar(x.id,desde,hasta)
+            
+             a.append(h)
+             return a, 200
+        abort(404)
+@nsLEP.route('/buscar/<string:desde>/<string:hasta>')
+class LepResource(Resource):
+    @nsLEP.marshal_list_with(modeloLEP)
+    def get(self, desde, hasta):
+        l = repo.traer_activos(desde,hasta)
+        if l:
+          return l,200
+        abort(404)

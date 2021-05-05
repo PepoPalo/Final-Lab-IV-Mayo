@@ -24,6 +24,10 @@ class EquiposRepo():
             return True
         return False
 
+    def get_activos(self):
+        return Equipo.query.filter(
+        Equipo.activo == True
+    )
     def buscar_by_activo(self, desde, hasta):
         return Equipo.query.filter(
             Equipo.fecha_ingreso >= desde,

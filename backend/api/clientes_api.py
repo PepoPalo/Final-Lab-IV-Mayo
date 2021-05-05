@@ -2,9 +2,12 @@ from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.clientes_repo import ClientesRepo
 from infraestructura.clientes_lep_repo import ClientesLepRepo
+from infraestructura.lineaequipoplan_repo import LineaEquipoPlanRepo
+
 from flask_restx.inputs import date
 
 repo = ClientesRepo()
+repo2 = LineaEquipoPlanRepo()
 repoLep = ClientesLepRepo()
 
 nsCliente = Namespace('clientes', description='Administrador de cliente')
@@ -79,9 +82,13 @@ class ClienteResource(Resource):
 class ClienteResource(Resource):
     @nsCliente.marshal_list_with(modeloCliente)
     def get(self, desde, hasta):
-        l = repo.buscar(desde, hasta)
+        l = repo2.traer_activos(desde, hasta)
         if l:
-            return l, 200
+             a = []
+             for x in l:
+              h = repo.get_by_id(x.cliente_id)
+             a.append(h)
+             return l, 200
         abort(404)
 
 @nsCliente.route('/baja/<int:id>')
