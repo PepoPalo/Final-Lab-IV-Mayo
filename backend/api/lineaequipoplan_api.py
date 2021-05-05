@@ -73,8 +73,7 @@ class LepResource(Resource):
 
     def put(self, id):
         if repo.baja(id):
-            #baja en cliente_lep
+            #baja en cliente_lep           
             repoLep.bajalep(id)
-
             return 'Relacion linea-equipo-plan dada de Baja', 200            
         abort(400)

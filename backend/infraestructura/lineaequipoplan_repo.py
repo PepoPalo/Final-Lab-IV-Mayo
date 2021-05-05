@@ -25,11 +25,11 @@ class LineaEquipoPlanRepo():
         return False
     def buscar_by_equipo(self, equipo):
         return Lineaequipoplan.query.filter(
-            Lineaequipoplan.equipo_id == equipo) 
+            Lineaequipoplan.equipo_id == equipo).first() 
     def buscar_by_linea(self,linea):
         return Lineaequipoplan.query.filter(
-            Lineaequipoplan.linea_id == linea)
-
+            Lineaequipoplan.linea_id == linea).first()
+    
     def modificar(self,id,data):
         lineaequipoplan = Lineaequipoplan.query.get(id)
         if lineaequipoplan:
