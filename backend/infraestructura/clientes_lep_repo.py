@@ -16,7 +16,7 @@ class ClientesLepRepo():
         return ClienteLep.query.get(numero)
 
     def baja(self, numero):
-        a = ClienteLep.query.get(numero)
+        a = ClienteLep.buscar_by_cliente(numero)
         if a:
             a.activo=False
             db.session.commit()
@@ -39,7 +39,11 @@ class ClientesLepRepo():
             ClienteLep.fecha >= desde,
             ClienteLep.fecha <= hasta).all()
 
-    def buscar_by_cliente(self, desde, hasta, cliente):
+    def buscar_by_cliente(self, cliente):
         return ClienteLep.query.filter(            
             ClienteLep.cliente_id == cliente,
             ClienteLep.activo ==True).all()
+    def buscar_by_lep(self, lep):
+        return ClienteLep.query.filter(            
+            ClienteLep.lep_id == lep,
+            ClienteLep.activo ==True).all()           
