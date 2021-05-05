@@ -7,7 +7,7 @@ import datetime
 class LineaEquipoPlanRepo():
     def get_all(self, cliente):
         return Lineaequipoplan.query.filter(ClienteLep.lep_id == Lineaequipoplan.id,
-        ClienteLep.cliente_id == cliente).all()
+        ClienteLep.cliente_id == cliente, Lineaequipoplan.fecha_fin == None).all()
 
     def agregar(self, data):
         lineaequipoplan = Lineaequipoplan(**data)

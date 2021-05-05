@@ -5,7 +5,7 @@ from datos import db
 
 class ClientesLepRepo():
     def get_all(self):
-        return ClienteLep.query.all()
+        return ClienteLep.query.filter(ClienteLep.activo == True).all()
 
     def agregar(self, data):
         a = ClienteLep(**data)
