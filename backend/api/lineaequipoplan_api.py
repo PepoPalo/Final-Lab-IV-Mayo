@@ -69,7 +69,7 @@ class LepResource(Resource):
         abort(404)
 @nsLEP.route('/baja/<int:id>')
 class LepResource(Resource):
-    @nsEquipo.expect(modeloLEP)
+    @nsLEP.expect(modeloLEP)
 
     def put(self, id):
         if repo.baja(id):

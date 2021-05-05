@@ -3,9 +3,7 @@ from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.lineas_repo import LineasRepo
 from infraestructura.clientes_lep_repo import ClientesLepRepo
 from infraestructura.lineaequipoplan_repo import LineaEquipoPlanRepo
-from infraestructura.EquiposRepo import EquiposRepo
 repoLep= LineaEquipoPlanRepo()
-repoEquipo= EquiposRepo()
 repoLepCliente = ClientesLepRepo()
 repo = LineasRepo()
 
