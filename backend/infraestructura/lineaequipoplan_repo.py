@@ -27,7 +27,7 @@ class LineaEquipoPlanRepo():
     def modificar(self,id,data):
         lineaequipoplan = Lineaequipoplan.query.get(id)
         if lineaequipoplan:
-            lineaequipoplan.id = data['id']
+            # lineaequipoplan.id = data['id']
             lineaequipoplan.plan_id = data['plan_id']
             lineaequipoplan.equipo_id = data['equipo_id']
             lineaequipoplan.fecha_ini = data['fecha_ini']
