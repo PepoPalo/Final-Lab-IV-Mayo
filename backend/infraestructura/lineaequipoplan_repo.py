@@ -23,6 +23,18 @@ class LineaEquipoPlanRepo():
             db.session.commit()
             return True
         return False
+    def baja_by_equipo(self,equipo):
+        lineaequipoplan= buscar_by_equipo(equipo)
+        if lineaequipoplan:
+            lineaequipoplan.fecha_fin =date.now()
+            db.session.commit()
+            
+    def baja_by_linea(self,linea):
+        lineaequipoplan= buscar_by_linea(linea)
+        if lineaequipoplan:
+            lineaequipoplan.fecha_fin =date.now()
+            db.session.commit()  
+
     def buscar_by_equipo(self, equipo):
         return Lineaequipoplan.query.filter(
             Lineaequipoplan.equipo_id == equipo).first() 

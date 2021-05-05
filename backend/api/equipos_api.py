@@ -2,10 +2,13 @@ from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.equipos_repo import EquiposRepo
 from infraestructura.clientes_lep_repo import ClientesLepRepo
+from infraestructura.lineaequipoplan_repo import LineaEquipoPlanRepo
+
 from flask_restx.inputs import date
 
 repo = EquiposRepo()
-repoLep = ClientesLepRepo()
+repoLepCliente = ClientesLepRepo()
+repoLep= LineaEquipoPlanRepo()
 
 
 nsEquipo = Namespace('equipos', description='Administrador de equipos')
@@ -93,6 +96,12 @@ class EquipoResource(Resource):
 
     def put(self, id):
         if repo.baja(id):
+            #baja en linea equipo plan
+            repoLep.baja_by_equipo(id)
+            #busco pa dar de baja en cliente-lep
+            lep =repoLep.buscar_by_equipo(id)
+            #baja en cliente-lep
+            repoLepCliente.bajalep(lep.id)
             return 'Equipo dado de Baja', 200            
         abort(400)
         

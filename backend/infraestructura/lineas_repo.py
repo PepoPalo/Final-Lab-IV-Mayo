@@ -26,7 +26,6 @@ class LineasRepo():
     def modificar(self,numero,data):
         a = Linea.query.get(numero)
         if a:
-            a.id = data['id']
             a.numero = data['numero']
             a.estado = data['estado']
             a.activa = data['activa']
