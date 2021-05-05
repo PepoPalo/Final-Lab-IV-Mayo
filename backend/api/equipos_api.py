@@ -69,10 +69,7 @@ class EquipoResource(Resource):
             return p, 200
         abort(404)
     
-    def delete(self, id):
-        if repo.baja(id):
-            return 'Equipo dado de Baja', 200            
-        abort(400)
+    
     
     @nsEquipo.expect(modeloEquipo)
     def put(self, id):
@@ -80,6 +77,7 @@ class EquipoResource(Resource):
         if repo.modificar(id,data):
             return 'Equipo actualizado', 200
         abort(404)
+   
 
 @nsEquipo.route('/buscar/<string:desde>/<string:hasta>/')
 class EquipoResource(Resource):
@@ -89,4 +87,12 @@ class EquipoResource(Resource):
         if l:
             return l, 200
         abort(404)
+@nsEquipo.route('/baja/<int:id>')
+class EquipoResource(Resource):
+    @nsEquipo.expect(modeloEquipo)
+
+    def put(self, id):
+        if repo.baja(id):
+            return 'Equipo dado de Baja', 200            
+        abort(400)
         

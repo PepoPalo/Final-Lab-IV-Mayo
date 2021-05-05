@@ -64,12 +64,7 @@ class ClienteResource(Resource):
             return cliente, 200
         abort(404)
 
-    def delete(self, id):
-        if repo.baja(id):
-            # doy de baja en la tabla relacional
-            repoLep.bajacliente(id)
-            return 'Cliente dado de baja', 200
-        abort(400)
+   
 
     @nsCliente.expect(modeloCliente)
     def put(self, id):
@@ -78,12 +73,21 @@ class ClienteResource(Resource):
             return 'Cliente actualizado', 200
         abort(404)
 
-@nsEquipo.route('/buscar/<string:desde>/<string:hasta>/')
+@nsCliente.route('/buscar/<string:desde>/<string:hasta>/')
 class ClienteResource(Resource):
-    @nsEquipo.marshal_list_with(modeloCliente)
+    @nsCliente.marshal_list_with(modeloCliente)
     def get(self, desde, hasta):
         l = repo.buscar(desde, hasta)
         if l:
             return l, 200
         abort(404)
-        
+
+@nsCliente.route('/baja/<int:id>')
+class ClienteResource(Resource):
+    @nsCliente.expect(modeloCliente)
+    def put(self, id):
+        if repo.baja(id):
+            # doy de baja en la tabla relacional
+            repoLep.bajacliente(id)
+            return 'Cliente dado de baja', 200
+        abort(400)    

@@ -1,7 +1,9 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.lineas_repo import LineasRepo
+from infraestructura.clientes_lep_repo import ClientesLepRepo
 
+repoLep = ClientesLepRepo()
 repo = LineasRepo()
 
 nsLinea = Namespace('lineas', description='Administrador de lineas')
@@ -61,9 +63,11 @@ class LineasResource(Resource):
             return f, 200
         abort(404)
 
-    def delete(self, numero):
-        if repo.borrar(numero):
-            return 'Linea borrada', 200
+    def put(self, numero):
+        if repo.baja(numero):
+        # doy de baja en la tabla relacional
+            repoLep.bajalep(numero)
+            return 'Linea dada de baja', 200
         abort(400)
     
     @nsLinea.expect(modeloLinea)
