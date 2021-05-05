@@ -95,12 +95,30 @@ export default function ClienteListado() {
                                     <th scope="row">{cliente.id}</th>
                                     <td className="text-center">{cliente.nombre}</td>
                                     <td className="text-center">
-                                        <Link className="btn btn-primary mr-2" to={"/clientes/ficha/" + cliente.id}>Ver</Link>
                                         <Link 
-                                            className="btn btn-warning" 
+                                            className="btn btn-outline-primary mr-2" 
+                                            to={"/clientes/ficha/" + cliente.id}
+                                            data-toggle="tooltip" data-placement="bottom" title="Ficha del cliente"
+                                            >Ver
+                                        </Link>
+                                        <Link 
+                                            className="btn btn btn-outline-warning mr-2" 
                                             to={"/clientes/" + cliente.id}
                                             data-toggle="tooltip" data-placement="bottom" title="Editar información personal"
-                                            >Editar</Link>
+                                            >Editar
+                                        </Link>
+                                        <Link 
+                                            className="btn btn-outline-danger mr-2" 
+                                            to={"/clientes/" + cliente.id}
+                                            data-toggle="tooltip" data-placement="bottom" title="Editar información personal"
+                                            >Dar Baja
+                                        </Link>
+                                        <Link 
+                                            className="btn btn btn-outline-info mr-2" 
+                                            to={"/clientes/" + cliente.id}
+                                            data-toggle="tooltip" data-placement="bottom" title="Editar información personal"
+                                            >Administrar Lineas
+                                        </Link>
                                     </td>
                                 </tr>
                             {/*!cliente.cerrada &&(

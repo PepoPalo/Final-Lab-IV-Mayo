@@ -65,7 +65,7 @@ export default function EquipoListado() {
         <>
             <div className="bg-white rounded-bottom rounded-right">
                 <div>
-                    <button className="btn btn-primary my-3">Nuevo</button>
+                    <Link to="/equipos/nuevo" className="btn btn-primary my-3">Nuevo</Link>
                     <form >
                     {/* <div className="row"> */}
                         <label htmlFor="start">Desde:</label>
@@ -110,8 +110,8 @@ export default function EquipoListado() {
                                     <td className="text-center">{equipo.modelo}</td>
                                     <td className="text-center">{equipo.estado}</td>
                                     <td className="text-center">
-                                        <Link className="btn btn-primary" to={"/equipos/"/* + equipo.numero*/}>Ver</Link> &nbsp;
-                                        <button className="btn btn-warning"   to={"/equipos/"/* + equipo.numero*/}>Editar</button> &nbsp;
+                                        <Link className="btn btn-outline-primary" to={"/equipos/" + equipo.numero}>Editar</Link> &nbsp;
+                                        <Link className="btn btn-outline-danger"   to={"/equipos/"/* + equipo.numero*/}>Dar Baja</Link> &nbsp;
                                     </td>
                                 </tr>
                             {/*!equipo.cerrada &&(

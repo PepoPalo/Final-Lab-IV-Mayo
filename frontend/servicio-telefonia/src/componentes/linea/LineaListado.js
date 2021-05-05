@@ -75,8 +75,8 @@ export default function LineaListado() {
                                     <th className="text-center">{linea.numero}</th>
                                     <td className="text-center">{linea.estado}</td>
                                     <td className="text-center">
-                                        <Link className="btn btn-primary" to={"/lineas/" + linea.numero}>Editar</Link> &nbsp;
-                                        <button className="btn btn-danger"   to={"/lineas/"/* + linea.numero*/}>Baja</button> &nbsp;
+                                        <Link className="btn btn-outline-primary" to={"/lineas/" + linea.numero}>Editar</Link> &nbsp;
+                                        <button className="btn btn-outline-danger"   to={"/lineas/"/* + linea.numero*/}>Baja</button> &nbsp;
                                     </td>
                                 </tr>
                             {/*!linea.cerrada &&(

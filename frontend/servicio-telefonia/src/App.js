@@ -81,7 +81,7 @@ export default function App() {
 
           {/* Equipos */}
           <Route path="/equipos/nuevo" component={EquipoForm}></Route>
-          <Route path="/equipos/:id" component={EquipoForm} ></Route>
+          <Route path="/equipos/:imei" component={EquipoForm} ></Route>
           <Route path="/equipos" component={EquipoListado}></Route>
 
           {/* Linea */}
