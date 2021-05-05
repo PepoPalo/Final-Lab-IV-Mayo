@@ -101,7 +101,7 @@ class LepResource(Resource):
 class LepResource(Resource):
     @nsLEP.marshal_list_with(modeloLEP)
     def get(self, desde, hasta):
-        l = repoLep.buscar(desde,hasta)
+        l = repoLep.traer_activos(desde,hasta)
         if l:
             a = []
             for x in l:

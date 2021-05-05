@@ -67,3 +67,9 @@ class LineaEquipoPlanRepo():
             Lineaequipoplan.fecha_fin == None,
             Lineaequipoplan.fecha_ini <= hasta,
             Lineaequipoplan.id==id).all()    
+
+    def traer_activos(self,desde, hasta):
+        return Lineaequipoplan.query.filter(
+            Lineaequipoplan.fecha_ini >= desde,
+            Lineaequipoplan.fecha_fin == None,
+            Lineaequipoplan.fecha_ini <= hasta).all()    
