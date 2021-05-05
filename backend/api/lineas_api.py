@@ -63,12 +63,7 @@ class LineasResource(Resource):
             return f, 200
         abort(404)
 
-    def put(self, numero):
-        if repo.baja(numero):
-        # doy de baja en la tabla relacional
-            repoLep.bajalep(numero)
-            return 'Linea dada de baja', 200
-        abort(400)
+   
     
     @nsLinea.expect(modeloLinea)
     def put(self, numero):
@@ -76,4 +71,13 @@ class LineasResource(Resource):
         if repo.modificar(numero, data):
             return 'Linea modificada', 200
         abort(404)
+@nsLinea.route('/baja/<int:numero>')
+class LineasResource(Resource):
+
+     def put(self, numero):
+        if repo.baja(numero):
+        # doy de baja en la tabla relacional
+            repoLep.bajalep(numero)
+            return 'Linea dada de baja', 200
+        abort(400)    
 
