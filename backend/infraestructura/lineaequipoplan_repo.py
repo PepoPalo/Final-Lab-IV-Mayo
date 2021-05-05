@@ -23,6 +23,12 @@ class LineaEquipoPlanRepo():
             db.session.commit()
             return True
         return False
+    def buscar_by_equipo(self, equipo):
+        return Lineaequipoplan.query.filter(
+            Lineaequipoplan.equipo_id == equipo) 
+    def buscar_by_linea(self,linea):
+        return Lineaequipoplan.query.filter(
+            Lineaequipoplan.linea_id == linea)
 
     def modificar(self,id,data):
         lineaequipoplan = Lineaequipoplan.query.get(id)
