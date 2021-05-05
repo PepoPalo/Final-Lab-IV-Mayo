@@ -7,14 +7,17 @@ repo = PlanesRepo()
 nsPlan = Namespace('planes', description='Administrador de planes')
 
 modeloPlanSinID = Model('PlanSinCod',{
+    'nombre': fields.String(),
+    'costo_por_mes': fields.Float(),
+    'cant_llamadas': fields.Integer(),
+    'cant_mensajes': fields.Integer(),
+    'cant_gigas': fields.Integer(),
     'tipo': fields.String(),
-    'descripcion': fields.String(),
-    'porcentaje_ganancia': fields.Integer(),
-    'costo': fields.Float()
+    'estaActivo': fields.Boolean()
 })
 
 modeloPlan = modeloPlanSinID.clone('Plan',{
-    'codigo': fields.Integer(),
+    'id': fields.Integer(),
 
 })
 
@@ -22,13 +25,16 @@ nsPlan.models[modeloPlan.name] = modeloPlan
 nsPlan.models[modeloPlanSinID.name] = modeloPlanSinID
 
 nuevoPlanParser = reqparse.RequestParser(bundle_errors=True)
+nuevoPlanParser.add_argument('nombre', type=str, required=True)
+nuevoPlanParser.add_argument('costo_por_mes', type=float)
+nuevoPlanParser.add_argument('cant_llamadas', type=int)
+nuevoPlanParser.add_argument('cant_mensajes', type=int)
+nuevoPlanParser.add_argument('cant_gigas', type=int)
 nuevoPlanParser.add_argument('tipo', type=str, required=True)
-nuevoPlanParser.add_argument('descripcion', type=str)
-nuevoPlanParser.add_argument('costo', type=float)
-nuevoPlanParser.add_argument('porcentaje_ganancia', type=int, required=True)
+nuevoPlanParser.add_argument('estaActivo', type=bool, required=True)
 
 editarPlanParser = nuevoPlanParser.copy()
-editarPlanParser.add_argument('codigo',type=int, required=True)
+editarPlanParser.add_argument('id',type=int, required=True)
 
 @nsPlan.route('/')
 class PlanResource(Resource):
