@@ -16,7 +16,7 @@ class ClientesLepRepo():
         return ClienteLep.query.get(numero)
 
     def bajacliente(self, numero):
-        a = ClienteLep.buscar_by_cliente(numero)      
+        a = buscar_by_cliente(numero)      
         if a:
             for x in a:             
                 x.activo=False
@@ -24,7 +24,7 @@ class ClientesLepRepo():
             return True
         return False
     def bajalep(self, numero):
-        a = ClienteLep.buscar_by_lep(numero)      
+        a = buscar_by_lep(numero)      
         if a:
             for x in a:
                 x.activo=False

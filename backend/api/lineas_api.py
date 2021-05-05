@@ -8,7 +8,7 @@ repo = LineasRepo()
 
 nsLinea = Namespace('lineas', description='Administrador de lineas')
 modeloLineaSinN = Model('LineaSinNumero',{
-    'numero': fields.Integer(),
+    'numero': fields.String(),
     'estado': fields.String(),
     'activa': fields.Boolean()
 })
@@ -27,7 +27,7 @@ nsLinea.models[modeloLineaSinN.name] = modeloLineaSinN
 nsLinea.models[modeloBusqueda.name] = modeloBusqueda
 
 nuevaLineaParser = reqparse.RequestParser(bundle_errors=True)
-nuevaLineaParser.add_argument('numero', type=int, required=True)
+nuevaLineaParser.add_argument('numero', type=str, required=True)
 nuevaLineaParser.add_argument('estado', type=str, required=True)
 nuevaLineaParser.add_argument('activa', type=bool, required=True)
 
