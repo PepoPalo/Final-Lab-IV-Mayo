@@ -39,7 +39,7 @@ nuevoEquipoParser.add_argument('marca', type=str, required=True)
 nuevoEquipoParser.add_argument('modelo', type=str, required=True)
 nuevoEquipoParser.add_argument('estado', type=str, required=True)
 nuevoEquipoParser.add_argument('fecha_ingreso', type=date, required=True)
-nuevoEquipoParser.add_argument('activo', type=bool, required=True)
+nuevoEquipoParser.add_argument('activo', type=bool, required=False, default=True)
 
 editarEquipoParser = nuevoEquipoParser.copy()
 editarEquipoParser.add_argument('imei',type=int, required=True)

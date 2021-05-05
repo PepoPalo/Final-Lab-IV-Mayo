@@ -15,14 +15,14 @@ export default function LineaListado() {
     }
   
   
-    // function borrar(id) {
-    //   axios.delete(`http://localhost:5000/lineas/${id}`)
-    //     .then((response) => {
-    //       alert("Registro borrado correctamente")
-    //       getLineas()
-    //     })
-    //     .catch(error => alert(error))
-    // }
+    function borrar(id) {
+      axios.put(`http://localhost:5000/lineas/baja/${id}`)
+        .then((response) => {
+          alert("Registro borrado correctamente")
+          getLineas()
+        })
+        .catch(error => alert(error))
+    }
 
 
     return (
@@ -47,8 +47,8 @@ export default function LineaListado() {
                                     <th className="text-center">{linea.numero}</th>
                                     <td className="text-center">{linea.estado}</td>
                                     <td className="text-center">
-                                        <Link className="btn btn-outline-primary" to={"/lineas/" + linea.numero}>Editar</Link> &nbsp;
-                                        <button className="btn btn-outline-danger"   to={"/lineas/"/* + linea.numero*/}>Baja</button> &nbsp;
+                                        <Link className="btn btn-outline-primary" to={"/lineas/" + linea.id}>Editar</Link> &nbsp;
+                                        <button className="btn btn-outline-danger mr-2" onClick={() => borrar(linea.id)}>Dar Baja</button>
                                     </td>
                                 </tr>
                             </>))

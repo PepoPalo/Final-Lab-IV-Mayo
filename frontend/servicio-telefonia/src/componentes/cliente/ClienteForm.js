@@ -131,7 +131,7 @@ export default function ClienteForm(){
                             <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
                             <button onClick={() => history.push("/clientes/")} className="btn btn-danger">Cancelar</button>
                         </div>
-                        </div>
+                    </div>
                         
                     <div className="form-row mt-3">
                         <div className="col-1 text-center align-self-center">

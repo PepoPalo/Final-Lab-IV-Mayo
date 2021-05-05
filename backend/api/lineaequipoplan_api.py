@@ -38,9 +38,9 @@ editarLEPParser.add_argument('id', type=int, required=True)
 
 @nsLEP.route('/')
 class LepResource(Resource):
-    @nsLEP.marshal_list_with(modeloLEP)
-    def get(self):
-        return repo.get_all()
+    # @nsLEP.marshal_list_with(modeloLEP)
+    # def get(self):
+    #     return repo.get_all()
 
     @nsLEP.expect(modeloLEPSinNum)
     @nsLEP.marshal_with(modeloLEP)
@@ -51,7 +51,13 @@ class LepResource(Resource):
             return df, 201
         abort(500)
 
-@nsLEP.route('/<int:id>')
+@nsLEP.route('/<int:cliente>')
+class LepResource(Resource):
+    @nsLEP.marshal_list_with(modeloLEP)
+    def get(self, cliente):
+        return repo.get_all(cliente)
+
+@nsLEP.route('/<int:cliente>/<int:id>')
 class LepResource(Resource):
     @nsLEP.marshal_with(modeloLEP)
     def get(self, id):

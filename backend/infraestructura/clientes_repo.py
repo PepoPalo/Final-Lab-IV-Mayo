@@ -3,10 +3,11 @@ from datos import db
 
 class ClientesRepo():
     def get_all(self):
-        return Cliente.query.all()
+        return Cliente.query.filter(Cliente.activo == True).all()
 
     def agregar(self, data):
         cliente = Cliente(**data)
+        cliente.activo = True
         db.session.add(cliente)
         db.session.commit()
         return cliente

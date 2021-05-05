@@ -13,6 +13,8 @@ import LineaListado from './componentes/linea/LineaListado';
 import PlanForm from './componentes/plan/PlanForm';
 import PlanListado from './componentes/plan/PlanListado';
 import ClienteFicha from './componentes/cliente/ClienteFicha';
+import LepForm from './componentes/lep/LepForm';
+import LepListado from './componentes/lep/LepListado';
 
 
 export default function App() {
@@ -78,6 +80,11 @@ export default function App() {
           <Route path="/clientes/ficha/:id" component={ClienteFicha}></Route>
           <Route path="/clientes/:id" component={ClienteForm}></Route>
           <Route path="/clientes" component={ClienteListado}></Route>
+
+          {/* LEP */}
+          <Route path="/lep/nuevo/:id" component={LepForm}></Route>
+          <Route path="/lep/<int:cliente>/<int:id>" component={LepForm}></Route>
+          <Route path="/leps/:id" component={LepListado} ></Route>
 
           {/* Equipos */}
           <Route path="/equipos/nuevo" component={EquipoForm}></Route>

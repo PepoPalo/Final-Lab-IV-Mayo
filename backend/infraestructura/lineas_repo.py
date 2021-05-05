@@ -4,10 +4,11 @@ from datos import db
 
 class LineasRepo():
     def get_all(self):
-        return Linea.query.all()
+        return Linea.query.filter(Linea.activa == True).all()
 
     def agregar(self, data):
         a = Linea(**data)
+        a.activa = True
         db.session.add(a)
         db.session.commit()
         return a

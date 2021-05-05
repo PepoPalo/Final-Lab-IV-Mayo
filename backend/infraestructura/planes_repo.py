@@ -3,7 +3,7 @@ from datos import db
 
 class PlanesRepo():
     def get_all(self):
-        return Plan.query.all()
+        return Plan.query.filter(Plan.estaActivo == True).all()
 
     def agregar(self, data):
         plan = Plan(**data)

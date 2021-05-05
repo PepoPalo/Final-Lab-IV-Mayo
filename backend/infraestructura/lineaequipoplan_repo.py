@@ -1,11 +1,13 @@
 from dominio.lineaequipoplan import Lineaequipoplan
+from dominio.cliente_lep import ClienteLep
 from datos import db
 import datetime
 
 
 class LineaEquipoPlanRepo():
-    def get_all(self):
-        return Lineaequipoplan.query.all()
+    def get_all(self, cliente):
+        return Lineaequipoplan.query.filter(ClienteLep.lep_id == Lineaequipoplan.id,
+        ClienteLep.cliente_id == cliente).all()
 
     def agregar(self, data):
         lineaequipoplan = lineaequipoplan(**data)

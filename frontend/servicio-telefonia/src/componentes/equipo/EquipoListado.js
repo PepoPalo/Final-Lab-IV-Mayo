@@ -15,14 +15,14 @@ export default function EquipoListado() {
     }
   
   
-    // function borrar(imei) {
-    //   axios.delete(`http://localhost:5000/equipos/${imei}`)
-    //     .then((response) => {
-    //       alert("Registro borrado correctamente")
-    //       getEquipos()
-    //     })
-    //     .catch(error => alert(error))
-    // }
+    function borrar(imei) {
+      axios.put(`http://localhost:5000/equipos/baja/${imei}`)
+        .then((response) => {
+          alert("Registro borrado correctamente")
+          getEquipos()
+        })
+        .catch(error => alert(error))
+    }
 
 
     return (
@@ -75,7 +75,8 @@ export default function EquipoListado() {
                                     <td className="text-center">{equipo.estado}</td>
                                     <td className="text-center">
                                         <Link className="btn btn-outline-primary" to={"/equipos/" + equipo.imei}>Editar</Link> &nbsp;
-                                        <Link className="btn btn-outline-danger"   to={"/equipos/"/* + equipo.numero*/}>Dar Baja</Link> &nbsp;
+                                        
+                                        <button className="btn btn-outline-danger mr-2" onClick={() => borrar(equipo.imei)}>Dar Baja</button>
                                     </td>
                                 </tr>
                                 

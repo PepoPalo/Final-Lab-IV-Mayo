@@ -4,10 +4,11 @@ from datos import db
 
 class EquiposRepo():
     def get_all(self):
-        return Equipo.query.all()
+        return Equipo.query.filter(Equipo.activo == True).all()
 
     def agregar(self, data):
         e = Equipo(**data)
+        e.activo = True
         db.session.add(e)
         db.session.commit()
         return e

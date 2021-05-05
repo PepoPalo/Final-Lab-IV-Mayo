@@ -15,14 +15,14 @@ export default function PlanListado() {
     }
   
   
-    // function borrar(id) {
-    //   axios.delete(`http://localhost:5000/planes/${id}`)
-    //     .then((response) => {
-    //       alert("Registro borrado correctamente")
-    //       getPlanes()
-    //     })
-    //     .catch(error => alert(error))
-    // }
+    function borrar(id) {
+      axios.put(`http://localhost:5000/planes/baja/${id}`)
+        .then((response) => {
+          alert("Registro borrado correctamente")
+          getPlanes()
+        })
+        .catch(error => alert(error))
+    }
 
 
     return (
@@ -56,7 +56,7 @@ export default function PlanListado() {
                                     <td className="text-center">{plan.tipo}</td>
                                     <td className="text-center">
                                         <Link className="btn btn-outline-primary" to={"/planes/" + plan.id}>Editar</Link> &nbsp;
-                                        <button className="btn btn-outline-danger"   to={"/planes/"}>Eliminar</button> &nbsp;
+                                        <button className="btn btn-outline-danger mr-2" onClick={() => borrar(plan.id)}>Dar Baja</button>
                                     </td>
                                 </tr>  
                             </>))

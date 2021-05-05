@@ -16,14 +16,14 @@ export default function ClienteListado() {
     }
   
   
-    // function borrar(id) {
-    //   axios.delete(`http://localhost:5000/clientes/${id}`)
-    //     .then((response) => {
-    //       alert("Registro borrado correctamente")
-    //       getClientes()
-    //     })
-    //     .catch(error => alert(error))
-    // }
+    function borrar(id) {
+      axios.put(`http://localhost:5000/clientes/baja/${id}`)
+        .then((response) => {
+          alert("Registro borrado correctamente")
+          getClientes()
+        })
+        .catch(error => alert(error))
+    }
 
 
     return (
@@ -83,34 +83,14 @@ export default function ClienteListado() {
                                             data-toggle="tooltip" data-placement="bottom" title="Editar información personal"
                                             >Editar
                                         </Link>
-                                        <Link 
-                                            className="btn btn-outline-danger mr-2" 
-                                            to={"/clientes/" + cliente.id}
-                                            data-toggle="tooltip" data-placement="bottom" title="Editar información personal"
-                                            >Dar Baja
-                                        </Link>
+                                        <button className="btn btn-outline-danger mr-2" onClick={() => borrar(cliente.id)}>Dar Baja</button>
                                         <Link 
                                             className="btn btn btn-outline-info mr-2" 
-                                            to={"/clientes/" + cliente.id}
-                                            data-toggle="tooltip" data-placement="bottom" title="Editar información personal"
+                                            to={"/leps/" + cliente.id}
                                             >Administrar Lineas
                                         </Link>
                                     </td>
                                 </tr>
-                            {/*!cliente.cerrada &&(
-                                <td>
-                                <button className="btn btn-primary" to={"/clientes/" + cliente.id} disabled>Ver</button> &nbsp;
-                                <Link className="btn btn-warning" to={"/clientes/" + cliente.id}>Editar</Link> &nbsp;
-                                </td>
-
-                            )*/}
-                                {/*cliente.cerrada &&(
-                                <td >
-                                <Link className="btn btn-primary" to={"/clientes/" + cliente.id}>Ver</Link> &nbsp;
-                                <button className="btn btn-warning"   to={"/clientes/" + cliente.id} disabled>Editar</button> &nbsp;
-                                </td>
-
-                                )*/}
                                 
                             </>))
                         )}
