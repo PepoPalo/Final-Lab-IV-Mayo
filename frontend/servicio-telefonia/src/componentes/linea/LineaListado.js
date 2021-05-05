@@ -29,7 +29,7 @@ var lineas = [
     }
 ]
 
-export default function ListadoForm() {
+export default function LineaListado() {
     const [lista, setLista] = useState([])
     useEffect(() => {
       getLineas()
@@ -37,7 +37,7 @@ export default function ListadoForm() {
   
     function getLineas() {
     //   axios.get("http://localhost:5000/lineas/")
-    //     .then((response) => setLista(response.data.filter(mozo => mozo.numero != null)))
+    //     .then((response) => setLista(response.data)))
     //     .catch((error) => alert(error))
         setLista(lineas)
     }
@@ -47,7 +47,7 @@ export default function ListadoForm() {
     //   axios.delete(`http://localhost:5000/lineas/${id}`)
     //     .then((response) => {
     //       alert("Registro borrado correctamente")
-    //       getClientes()
+    //       getLineas()
     //     })
     //     .catch(error => alert(error))
     // }
@@ -57,7 +57,7 @@ export default function ListadoForm() {
         <>
             <div className="bg-white rounded-bottom rounded-right">
                 <div>
-                    <button className="btn btn-primary my-3">Nuevo</button>
+                    <Link to='/lineas/nueva' className="btn btn-primary my-3">Nuevo</Link>
                 </div>
                 <table className="table table-hover">
                     <thead className="bg-info">
@@ -75,21 +75,21 @@ export default function ListadoForm() {
                                     <th className="text-center">{linea.numero}</th>
                                     <td className="text-center">{linea.estado}</td>
                                     <td className="text-center">
-                                        <Link className="btn btn-primary" to={"/lineas/"/* + linea.numero*/}>Ver</Link> &nbsp;
-                                        <button className="btn btn-warning"   to={"/lineas/"/* + linea.numero*/}>Editar</button> &nbsp;
+                                        <Link className="btn btn-primary" to={"/lineas/" + linea.numero}>Editar</Link> &nbsp;
+                                        <button className="btn btn-danger"   to={"/lineas/"/* + linea.numero*/}>Baja</button> &nbsp;
                                     </td>
                                 </tr>
                             {/*!linea.cerrada &&(
                                 <td>
-                                <button className="btn btn-primary" to={"/adiciones/" + linea.numero} disabled>Ver</button> &nbsp;
-                                <Link className="btn btn-warning" to={"/adiciones/" + linea.numero}>Editar</Link> &nbsp;
+                                <button className="btn btn-primary" to={"/lineas/" + linea.numero} disabled>Ver</button> &nbsp;
+                                <Link className="btn btn-warning" to={"/lineas/" + linea.numero}>Editar</Link> &nbsp;
                                 </td>
 
                             )*/}
                                 {/*linea.cerrada &&(
                                 <td >
-                                <Link className="btn btn-primary" to={"/adiciones/" + linea.numero}>Ver</Link> &nbsp;
-                                <button className="btn btn-warning"   to={"/adiciones/" + linea.numero} disabled>Editar</button> &nbsp;
+                                <Link className="btn btn-primary" to={"/lineas/" + linea.numero}>Ver</Link> &nbsp;
+                                <button className="btn btn-warning"   to={"/lineas/" + linea.numero} disabled>Editar</button> &nbsp;
                                 </td>
 
                                 )*/}

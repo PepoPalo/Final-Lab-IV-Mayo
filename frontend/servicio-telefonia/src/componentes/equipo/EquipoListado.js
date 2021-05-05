@@ -37,7 +37,7 @@ var equipos = [
     }
 ]
 
-export default function ListadoForm() {
+export default function EquipoListado() {
     const [lista, setLista] = useState([])
     useEffect(() => {
       getEquipos()
@@ -45,7 +45,7 @@ export default function ListadoForm() {
   
     function getEquipos() {
     //   axios.get("http://localhost:5000/equipos/")
-    //     .then((response) => setLista(response.data.filter(mozo => mozo.numero != null)))
+    //     .then((response) => setLista(response.data)))
     //     .catch((error) => alert(error))
         setLista(equipos)
     }
@@ -55,7 +55,7 @@ export default function ListadoForm() {
     //   axios.delete(`http://localhost:5000/equipos/${imei}`)
     //     .then((response) => {
     //       alert("Registro borrado correctamente")
-    //       getClientes()
+    //       getEquipos()
     //     })
     //     .catch(error => alert(error))
     // }
@@ -116,15 +116,15 @@ export default function ListadoForm() {
                                 </tr>
                             {/*!equipo.cerrada &&(
                                 <td>
-                                <button className="btn btn-primary" to={"/adiciones/" + equipo.numero} disabled>Ver</button> &nbsp;
-                                <Link className="btn btn-warning" to={"/adiciones/" + equipo.numero}>Editar</Link> &nbsp;
+                                <button className="btn btn-primary" to={"/equipos/" + equipo.numero} disabled>Ver</button> &nbsp;
+                                <Link className="btn btn-warning" to={"/equipos/" + equipo.numero}>Editar</Link> &nbsp;
                                 </td>
 
                             )*/}
                                 {/*equipo.cerrada &&(
                                 <td >
-                                <Link className="btn btn-primary" to={"/adiciones/" + equipo.numero}>Ver</Link> &nbsp;
-                                <button className="btn btn-warning"   to={"/adiciones/" + equipo.numero} disabled>Editar</button> &nbsp;
+                                <Link className="btn btn-primary" to={"/equipos/" + equipo.numero}>Ver</Link> &nbsp;
+                                <button className="btn btn-warning"   to={"/equipos/" + equipo.numero} disabled>Editar</button> &nbsp;
                                 </td>
 
                                 )*/}

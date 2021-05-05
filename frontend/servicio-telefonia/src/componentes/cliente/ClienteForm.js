@@ -2,6 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
+var clientep ={
+    id: 1,
+    nombre: 'Pedro Palomino',
+    direccion: 'Av. Crespo 1072',
+    sexo: 'Masculino',
+    edad: 26,
+    fecha_ingreso: '16/06/1996',
+    activo: 'True'
+}
+
 export default function ClienteForm(){
     const history = useHistory()
     const { id } = useParams()
@@ -14,12 +24,18 @@ export default function ClienteForm(){
         activo: '',
     })
 
+    const sexos = [
+        'Masculino',
+        'Femenino'
+    ]
+
     useEffect(() => {
         // if (id) {
         //     axios.get(`http://localhost:5000/clientes/${id}`)
         //         .then(response => setCliente(response.data))
         //         .catch(error => alert(error))
         // }
+        setCliente(clientep)
     }, [])
 
     function handleOnChange(event, campo) {
@@ -52,31 +68,68 @@ export default function ClienteForm(){
 
     return(
         <>
-            <div className="container bg-white">
-
-                {id && <h1>Editando cliente</h1>}
+            <div className="container bg-white py-3">
                 {!id && <h1>Nuevo cliente</h1>}
                 <form onSubmit={(event) => guardar(event)}>
-                    <div className="form-group">
-                        <label>Nombre</label>
-                        <input type="text" className="form-control" value={cliente.nombre} onChange={(event) => handleOnChange(event, 'nombre')} />
+                    {id && 
+                        <div className="row justify-content-center">
+                            <div class="text-center col-4 alert alert-danger" role="alert">
+                                Cuidado está editando un cliente!
+                            </div>
+                        </div>
+                    }
+                    <div className="form-row">
+                        <div className="col-1 text-center align-self-center">
+                            <label>Nombre</label>
+                        </div>
+                        <div className="col-4">
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            value={cliente.nombre} 
+                            onChange={(event) => handleOnChange(event, 'nombre')} 
+                            placeholder="Nombre"/>
+                        </div>
+                        <div className="col-1 text-center align-self-center">
+                            Sexo
+                        </div>
+                        <div className="col-2">
+                            <select 
+                                key={0} 
+                                value={cliente.sexo} 
+                                className="form-control" 
+                                aria-label=".form-select-lg example" 
+                                onChange={(event) => {handleOnChange(event, 'sexo') }}>
+                                {sexos.map(item => (
+                                    <option key={item} value={item}>{item}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className="col-1 text-center align-self-center">
+                            <label>Edad</label>
+                        </div>
+                        <div className="col-1">
+                            <input 
+                                type="number" 
+                                className="form-control text-center" 
+                                value={cliente.edad} onChange={(event) => handleOnChange(event, 'edad')} />
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Dirección</label>
-                        <input type="text" className="form-control" value={cliente.direccion} onChange={(event) => handleOnChange(event, 'direccion')} />
-                    </div>
-                    <div className="form-group">
-                        <label>Sexo</label>
-                        <input type="text" className="form-control" value={cliente.sexo} onChange={(event) => handleOnChange(event, 'sexo')} />
-                    </div>
-                    <div className="form-group">
-                        <label>Edad</label>
-                        <input type="text" className="form-control" value={cliente.edad} onChange={(event) => handleOnChange(event, 'edad')} />
-                    </div>
-
-                    <div className="float-right">
-                        <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
-                        <button onClick={() => history.push("/clientes/")} className="btn btn-primary">Cancelar</button>
+                    <div className="form-row mt-3">
+                        <div className="col-1 text-center align-self-center">
+                            <label>Dirección</label>
+                        </div>
+                        <input 
+                            type="text" 
+                            className="form-control col-4" 
+                            value={cliente.direccion} 
+                            onChange={(event) => handleOnChange(event, 'direccion')} />
+                        <div className="col-2"></div>
+                        <div className="col-4 justify-content-end">
+                            <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
+                            <button onClick={() => history.push("/clientes/")} className="btn btn-danger">Cancelar</button>
+                        </div>
                     </div>
                 </form>
             </div>

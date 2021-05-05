@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 
+var lineap = {
+    id: 1,
+    numero: '+543435182886',
+    estado: 'activada',
+    activo: 'True'
+}
+
 export default function LineaForm(){
     const history = useHistory()
     const { id } = useParams()
@@ -11,6 +18,11 @@ export default function LineaForm(){
         estado: '',
         activo: '',
     })
+    const estados = [
+        'pendiente',
+        'activada',
+        'bloqueada'
+    ]
 
     useEffect(() => {
         // if (id) {
@@ -18,6 +30,7 @@ export default function LineaForm(){
         //         .then(response => setLinea(response.data))
         //         .catch(error => alert(error))
         // }
+        setLinea(lineap)
     }, [])
 
     function handleOnChange(event, campo) {
@@ -50,24 +63,44 @@ export default function LineaForm(){
 
     return(
         <>
-            <div className="container bg-white">
-
-                {id && <h1>Editando linea</h1>}
-                {!id && <h1>Nuevo linea</h1>}
+            <div className="container bg-white  py-3">
+                {!id && <h1>Nueva linea</h1>}
                 <form onSubmit={(event) => guardar(event)}>
                     <div className="form-group">
-                        <label>Número</label>
-                        <input type="text" className="form-control" value={linea.numero} onChange={(event) => handleOnChange(event, 'numero')} />
+                        {id &&
+                            <div className="row justify-content-center">
+                                <div class="text-center col-4 alert alert-danger" role="alert">
+                                    Cuidado está editando una línea!
+                                </div>
+                            </div>
+                        }
+                        <div className="row justify-content-center">
+                            <label className="mr-4">Número</label>
+                            <input type="text" className="form-control col-2" value={linea.numero} onChange={(event) => handleOnChange(event, 'numero')} />
+                        </div>
+                        {id && 
+                            <div className="row justify-content-center m-4">
+                                <label className="mr-4">Estado</label>
+                                {/* <input type="text" className="form-control col-4" value={linea.estado} onChange={(event) => handleOnChange(event, 'estado')} /> */}
+                                <select 
+                                    key={0} 
+                                    value={linea.estado} 
+                                    className="form-control col-2" 
+                                    aria-label=".form-select-lg example" 
+                                    onChange={(event) => {handleOnChange(event, 'estado') }}>
+                                    {estados.map(item => (
+                                        <option key={item} value={item}>{item}</option>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                        }
+                        <div className="row justify-content-center mt-4">
+                            <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
+                            <button onClick={() => history.push("/lineas/")} className="btn btn-danger">Cancelar</button>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Estado</label>
-                        <input type="text" className="form-control" value={linea.estado} onChange={(event) => handleOnChange(event, 'estado')} />
-                    </div>
-
-                    <div className="float-right">
-                        <button type="submit" className="btn btn-primary mr-2">Aceptar</button>
-                        <button onClick={() => history.push("/lineas/")} className="btn btn-primary">Cancelar</button>
-                    </div>
+ 
                 </form>
             </div>
         </>

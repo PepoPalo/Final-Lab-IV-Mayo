@@ -34,7 +34,7 @@ export default function ClienteListado() {
   
     function getClientes() {
     //   axios.get("http://localhost:5000/clientes/")
-    //     .then((response) => setLista(response.data.filter(mozo => mozo.numero != null)))
+    //     .then((response) => setLista(response.data.filter(mozo => mozo.id != null)))
     //     .catch((error) => alert(error))
         setLista(clientes)
     }
@@ -54,7 +54,7 @@ export default function ClienteListado() {
         <>
             <div className="bg-white rounded-bottom rounded-right">
                 <div>
-                    <button className="btn btn-primary my-3">Nuevo</button>
+                    <Link to="/clientes/nuevo" className="btn btn-primary my-3">Nuevo</Link>
                     <form >
                     {/* <div className="row"> */}
                         <label htmlFor="start">Desde:</label>
@@ -95,21 +95,25 @@ export default function ClienteListado() {
                                     <th scope="row">{cliente.id}</th>
                                     <td className="text-center">{cliente.nombre}</td>
                                     <td className="text-center">
-                                        <Link className="btn btn-primary" to={"/clientes/"/* + cliente.numero*/}>Ver</Link> &nbsp;
-                                        <button className="btn btn-warning"   to={"/clientes/"/* + cliente.numero*/}>Editar</button> &nbsp;
+                                        <Link className="btn btn-primary mr-2" to={"/clientes/ficha/" + cliente.id}>Ver</Link>
+                                        <Link 
+                                            className="btn btn-warning" 
+                                            to={"/clientes/" + cliente.id}
+                                            data-toggle="tooltip" data-placement="bottom" title="Editar información personal"
+                                            >Editar</Link>
                                     </td>
                                 </tr>
                             {/*!cliente.cerrada &&(
                                 <td>
-                                <button className="btn btn-primary" to={"/adiciones/" + cliente.numero} disabled>Ver</button> &nbsp;
-                                <Link className="btn btn-warning" to={"/adiciones/" + cliente.numero}>Editar</Link> &nbsp;
+                                <button className="btn btn-primary" to={"/clientes/" + cliente.id} disabled>Ver</button> &nbsp;
+                                <Link className="btn btn-warning" to={"/clientes/" + cliente.id}>Editar</Link> &nbsp;
                                 </td>
 
                             )*/}
                                 {/*cliente.cerrada &&(
                                 <td >
-                                <Link className="btn btn-primary" to={"/adiciones/" + cliente.numero}>Ver</Link> &nbsp;
-                                <button className="btn btn-warning"   to={"/adiciones/" + cliente.numero} disabled>Editar</button> &nbsp;
+                                <Link className="btn btn-primary" to={"/clientes/" + cliente.id}>Ver</Link> &nbsp;
+                                <button className="btn btn-warning"   to={"/clientes/" + cliente.id} disabled>Editar</button> &nbsp;
                                 </td>
 
                                 )*/}

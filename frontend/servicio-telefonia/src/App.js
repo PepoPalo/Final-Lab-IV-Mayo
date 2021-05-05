@@ -12,6 +12,7 @@ import LineaListado from './componentes/linea/LineaListado';
 
 import PlanForm from './componentes/plan/PlanForm';
 import PlanListado from './componentes/plan/PlanListado';
+import ClienteFicha from './componentes/cliente/ClienteFicha';
 
 
 export default function App() {
@@ -74,6 +75,7 @@ export default function App() {
 
           {/* Clientes */}
           <Route path="/clientes/nuevo" component={ClienteForm}></Route>
+          <Route path="/clientes/ficha/:id" component={ClienteFicha}></Route>
           <Route path="/clientes/:id" component={ClienteForm}></Route>
           <Route path="/clientes" component={ClienteListado}></Route>
 
@@ -84,7 +86,7 @@ export default function App() {
 
           {/* Linea */}
           <Route path="/lineas/nueva" component={LineaForm}></Route>
-          <Route path="/lineas/:numero" component={LineaForm}></Route>
+          <Route path="/lineas/:id" component={LineaForm}></Route>
           <Route path="/lineas/buscar/:desde/:hasta" component={LineaListado}></Route>
           <Route path="/lineas/buscar/:desde/:hasta/:mozo" component={LineaListado}></Route>
           <Route path="/lineas" component={LineaListado}></Route>
