@@ -86,10 +86,10 @@ class ClienteResource(Resource):
         if l:
              a = []
              for x in l:
-                h = repo.get_by_id(x.cliente_id)
-                a.append(h)
+              h = repo.get_by_id(x.cliente_id)
+             a.append(h)
              return l, 200
-    abort(404)
+        abort(404)
 
 @nsCliente.route('/baja/<int:id>')
 class ClienteResource(Resource):
