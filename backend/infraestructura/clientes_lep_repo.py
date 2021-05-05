@@ -15,10 +15,10 @@ class ClientesLepRepo():
     def get_by_numero(self, numero):
         return ClienteLep.query.get(numero)
 
-    def borrar(self, numero):
+    def baja(self, numero):
         a = ClienteLep.query.get(numero)
         if a:
-            db.session.delete(a)
+            a.activo=False
             db.session.commit()
             return True
         return False
@@ -28,7 +28,8 @@ class ClientesLepRepo():
         if a:
             a.id = data['id']
             a.cliente_id = data['lep_id']
-            a.lep_id = data['lep_id']            
+            a.lep_id = data['lep_id']  
+            a.activo = data['activo']          
             db.session.commit()
             return True
         return False
@@ -40,4 +41,5 @@ class ClientesLepRepo():
 
     def buscar_by_cliente(self, desde, hasta, cliente):
         return ClienteLep.query.filter(            
-            ClienteLep.cliente_id == cliente).all()
+            ClienteLep.cliente_id == cliente,
+            ClienteLep.activo ==True).all()

@@ -1,28 +1,43 @@
 from flask import abort
 from flask_restx import Resource, Namespace, Model, fields, reqparse
 from infraestructura.clientes_repo import ClientesRepo
+from infraestructura.clientes_lep_repo import ClientesLepRepo
+from flask_restx.inputs import date
 
 repo = ClientesRepo()
+repoLep = ClientesLepRepo()
 
 nsCliente = Namespace('clientes', description='Administrador de cliente')
 
 modeloClienteSinID = Model('ClienteSinID',{
-    'nombre': fields.String()
+    'nombre': fields.String(),
+    'direccion': fields.String(),
+    'sexo':fields.String(),
+    'fecha_ingreso':fields.Date(),
+    'activo':fields.Boolean()
 })
 
 modeloCliente = modeloClienteSinID.clone('Cliente',{
-    'numero': fields.Integer()
+    'id': fields.Integer()
 })
 
-
+modeloBusqueda = Model('BusquedaFechas', {
+    'desde': fields.Date(),
+    'hasta': fields.Date()
+})
 nsCliente.models[modeloCliente.name] = modeloCliente
 nsCliente.models[modeloClienteSinID.name] = modeloClienteSinID
+nsCliente.models[modeloBusqueda.name] = modeloBusqueda
 
 nuevoClienteParser = reqparse.RequestParser(bundle_errors=True)
 nuevoClienteParser.add_argument('nombre', type=str, required=True)
+nuevoClienteParser.add_argument('direccion', type=str, required=True)
+nuevoClienteParser.add_argument('sexo', type=str, required=True)
+nuevoClienteParser.add_argument('fecha_ingreso', type=date, required=True)
+nuevoClienteParser.add_argument('activo', type=bool, required=True)
 
 editarClienteParser = nuevoClienteParser.copy()
-editarClienteParser.add_argument('numero', type=int, required=True)
+editarClienteParser.add_argument('id', type=int, required=True)
 
 @nsCliente.route('/')
 class ClientesResource(Resource):
@@ -41,7 +56,7 @@ class ClientesResource(Resource):
         abort(500)
 
 @nsCliente.route('/<int:id>')
-class ClientesResource(Resource):
+class ClienteResource(Resource):
     @nsCliente.marshal_with(modeloCliente)
     def get(self, id):
         cliente = repo.get_by_id(id)
@@ -50,8 +65,10 @@ class ClientesResource(Resource):
         abort(404)
 
     def delete(self, id):
-        if repo.borrar(id):
-            return 'Cliente eliminado', 200
+        if repo.baja(id):
+            # doy de baja en la tabla relacional
+            repoLep.baja(id)
+            return 'Cliente dado de baja', 200
         abort(400)
 
     @nsCliente.expect(modeloCliente)
@@ -60,3 +77,13 @@ class ClientesResource(Resource):
         if repo.modificar(id, data):
             return 'Cliente actualizado', 200
         abort(404)
+
+@nsEquipo.route('/buscar/<string:desde>/<string:hasta>/')
+class ClienteResource(Resource):
+    @nsEquipo.marshal_list_with(modeloEquipo)
+    def get(self, desde, hasta):
+        l = repo.buscar(desde, hasta)
+        if l:
+            return l, 200
+        abort(404)
+        

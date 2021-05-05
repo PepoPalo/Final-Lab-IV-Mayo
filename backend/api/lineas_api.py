@@ -6,15 +6,13 @@ repo = LineasRepo()
 
 nsLinea = Namespace('lineas', description='Administrador de lineas')
 modeloLineaSinN = Model('LineaSinNumero',{
-    'mesa': fields.Integer(),
-    'porcentaje_venta': fields.Float(),
-    'fecha': fields.Date(),
-    'nro_mozo': fields.Integer(),
-    'cerrada': fields.Boolean()
+    'numero': fields.Integer(),
+    'estado': fields.String(),
+    'activa': fields.Boolean()
 })
 
 modeloLinea = modeloLineaSinN.clone('Linea', {
-    'numero': fields.Integer()
+    'id': fields.Integer()
 })
 
 modeloBusqueda = Model('BusquedaFechas', {
@@ -27,14 +25,12 @@ nsLinea.models[modeloLineaSinN.name] = modeloLineaSinN
 nsLinea.models[modeloBusqueda.name] = modeloBusqueda
 
 nuevaLineaParser = reqparse.RequestParser(bundle_errors=True)
-nuevaLineaParser.add_argument('mesa', type=int, required=True)
-nuevaLineaParser.add_argument('porcentaje_venta', type=float, required=True)
-nuevaLineaParser.add_argument('fecha', type=str, required=True)
-nuevaLineaParser.add_argument('nro_mozo', type=int, required=True)
-nuevaLineaParser.add_argument('cerrada', type=bool, required=False)
+nuevaLineaParser.add_argument('numero', type=int, required=True)
+nuevaLineaParser.add_argument('estado', type=str, required=True)
+nuevaLineaParser.add_argument('activa', type=bool, required=True)
 
 editarLineaParser = nuevaLineaParser.copy()
-editarLineaParser.add_argument('numero', type=int, required=True)
+editarLineaParser.add_argument('id', type=int, required=True)
 
 buscarLineasParser = reqparse.RequestParser(bundle_errors=True)
 buscarLineasParser.add_argument('desde', type=str, required=True)
@@ -77,23 +73,3 @@ class LineasResource(Resource):
             return 'Linea modificada', 200
         abort(404)
 
-@nsLinea.route('/buscar/<string:desde>/<string:hasta>/')
-class LineasResource(Resource):
-    @nsLinea.marshal_list_with(modeloLinea)
-    def get(self, desde, hasta):
-        l = repo.buscar(desde, hasta)
-        if l:
-            return l, 200
-        abort(404)
-
-@nsLinea.route('/buscar/<string:desde>/<string:hasta>/<int:mozo>')
-class LineasResource(Resource):
-    # """
-    # Busca lineas con las fechas, el formato es: YYYY-MM-DD
-    # """
-    @nsLinea.marshal_list_with(modeloLinea)
-    def get(self, desde, hasta, mozo):
-        l = repo.buscar_by_mozo(desde, hasta, mozo)
-        if l:
-            return l, 200
-        abort(404)

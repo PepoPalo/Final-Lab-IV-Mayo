@@ -7,3 +7,4 @@ class ClienteLep(db.Model):
     id= Column(Integer(), primary_key=True, autoincrement=True)
     cliente_id = Column(Integer(), nullable=False)
     lep_id = Column(Integer(), nullable=False)
+    activo = Column(Boolean(True), nullable=False)

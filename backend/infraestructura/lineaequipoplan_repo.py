@@ -5,7 +5,7 @@ from datetime import date
 
 class LineaEquipoPlanRepo():
     def get_all(self):
-        return lineaequipoplan.query.all()
+        return Lineaequipoplan.query.all()
 
     def agregar(self, data):
         lineaequipoplan = lineaequipoplan(**data)
@@ -14,10 +14,10 @@ class LineaEquipoPlanRepo():
         return lineaequipoplan
     
     def get_by_id(self, id):
-        return lineaequipoplan.query.get(id)
+        return Lineaequipoplan.query.get(id)
 
     def baja(self, id):
-        lineaequipoplan = lineaequipoplan.query.get(id)
+        lineaequipoplan = Lineaequipoplan.query.get(id)
         if lineaequipoplan:
             lineaequipoplan.fecha_fin = date.now()
             db.session.commit()
@@ -25,7 +25,7 @@ class LineaEquipoPlanRepo():
         return False
 
     def modificar(self,id,data):
-        lineaequipoplan = lineaequipoplan.query.get(id)
+        lineaequipoplan = Lineaequipoplan.query.get(id)
         if lineaequipoplan:
             lineaequipoplan.id = data['id']
             lineaequipoplan.plan_id = data['plan_id']
