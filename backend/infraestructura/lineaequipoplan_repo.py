@@ -60,3 +60,10 @@ class LineaEquipoPlanRepo():
             db.session.commit()
             return True
         return False
+
+    def buscar(self, id,desde, hasta):
+        return Lineaequipoplan.query.filter(
+            Lineaequipoplan.fecha_ini >= desde,
+            Lineaequipoplan.fecha_fin == None,
+            Lineaequipoplan.fecha_ini <= hasta,
+            Lineaequipoplan.id==id).all()    

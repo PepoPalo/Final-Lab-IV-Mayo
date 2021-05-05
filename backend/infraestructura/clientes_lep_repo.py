@@ -1,5 +1,6 @@
 import datetime
 from dominio.cliente_lep import ClienteLep
+from dominio.lineaequipoplan import Lineaequipoplan
 from datos import db
 
 class ClientesLepRepo():
@@ -60,6 +61,9 @@ class ClientesLepRepo():
     def buscar_by_cliente(self, cliente):
         return ClienteLep.query.filter(            
             ClienteLep.cliente_id == cliente,
+            # desde>= Lineaequipoplan.fecha_ini,
+            # hasta<= Lineaequipoplan.fecha_ini,
+            # None != Lineaequipoplan.fecha_fin,            
             ClienteLep.activo ==True).all()
 
 
