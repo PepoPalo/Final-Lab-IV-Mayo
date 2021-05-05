@@ -84,7 +84,7 @@ class LineasResource(Resource):
 @nsLinea.route('/baja/<int:id>')
 class LineasResource(Resource):
 
-     def put(self, numero):
+     def put(self, id):
         if repo.baja(id):
             # doy de baja en lineaEquipoPlan
 
